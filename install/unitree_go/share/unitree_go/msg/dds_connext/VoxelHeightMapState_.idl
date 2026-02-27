@@ -1,0 +1,33 @@
+// generated from rosidl_generator_dds_idl/resource/idl.idl.em
+// with input from unitree_go:msg/VoxelHeightMapState.idl
+// generated code does not contain a copyright notice
+
+#ifndef __unitree_go__msg__voxel_height_map_state__idl__
+#define __unitree_go__msg__voxel_height_map_state__idl__
+
+
+module unitree_go {
+
+module msg {
+
+module dds_ {
+
+
+struct VoxelHeightMapState_ {
+double stamp_;
+double stamp_cloud_;
+double stamp_odom_;
+unsigned long height_map_size_;
+unsigned long voxel_map_size_;
+
+};
+
+
+};  // module dds_
+
+};  // module msg
+
+};  // module unitree_go
+
+
+#endif  // __unitree_go__msg__voxel_height_map_state__idl__

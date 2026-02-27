@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/jnu/isaac_ws/build/unitree_go/cmake_install.cmake",
+		"/home/jnu/isaac_ws/build/unitree_go/unitree_go__py/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

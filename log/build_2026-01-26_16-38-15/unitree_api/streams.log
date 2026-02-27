@@ -1,0 +1,447 @@
+[0.004s] Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api
+[0.012s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.012s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.012s]   CMake.
+[0.012s] 
+[0.012s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.012s]   to tell CMake that the project requires at least <min> but has been updated
+[0.012s]   to work with policies introduced by <max> or earlier.
+[0.012s] 
+[0.012s] [0m
+[0.015s] -- Found ament_cmake: 1.3.12 (/home/jnu/anaconda3/envs/isaaclab/share/ament_cmake/cmake)
+[0.161s] -- Found geometry_msgs: 4.9.0 (/home/jnu/anaconda3/envs/isaaclab/share/geometry_msgs/cmake)
+[0.171s] -- Found rosidl_generator_c: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_c/cmake)
+[0.172s] -- Found rosidl_adapter: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_adapter/cmake)
+[0.176s] -- Found rosidl_generator_cpp: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_cpp/cmake)
+[0.181s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.188s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.213s] -- Found rosidl_default_generators: 1.2.0 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_default_generators/cmake)
+[0.217s] -- Found rosidl_generator_dds_idl: 0.8.1 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_dds_idl/cmake)
+[0.503s] -- Found ament_cmake_ros: 0.10.0 (/home/jnu/anaconda3/envs/isaaclab/share/ament_cmake_ros/cmake)
+[1.097s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.326s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.327s] -- Found python_cmake_module: 0.10.0 (/home/jnu/anaconda3/envs/isaaclab/share/python_cmake_module/cmake)
+[1.327s] [33mCMake Warning (dev) at /home/jnu/anaconda3/envs/isaaclab/share/python_cmake_module/cmake/Modules/FindPythonExtra.cmake:52 (find_package):
+[1.328s]   Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+[1.328s]   are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+[1.328s]   the cmake_policy command to set the policy and suppress this warning.
+[1.328s] 
+[1.328s] Call Stack (most recent call first):
+[1.328s]   /home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_py/cmake/rosidl_generator_py_generate_interfaces.cmake:33 (find_package)
+[1.328s]   /home/jnu/anaconda3/envs/isaaclab/share/ament_cmake_core/cmake/core/ament_execute_extensions.cmake:48 (include)
+[1.328s]   /home/jnu/anaconda3/envs/isaaclab/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:286 (ament_execute_extensions)
+[1.328s]   CMakeLists.txt:28 (rosidl_generate_interfaces)
+[1.328s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[1.328s] [0m
+[1.348s] -- Found PythonInterp: /home/jnu/anaconda3/envs/isaaclab/bin/python3 (found suitable version "3.11.14", minimum required is "3.6")
+[1.348s] [33mCMake Warning (dev) at /home/jnu/anaconda3/envs/isaaclab/share/python_cmake_module/cmake/Modules/FindPythonExtra.cmake:140 (find_package):
+[1.348s]   Policy CMP0148 is not set: The FindPythonInterp and FindPythonLibs modules
+[1.348s]   are removed.  Run "cmake --help-policy CMP0148" for policy details.  Use
+[1.348s]   the cmake_policy command to set the policy and suppress this warning.
+[1.348s] 
+[1.348s] Call Stack (most recent call first):
+[1.348s]   /home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_py/cmake/rosidl_generator_py_generate_interfaces.cmake:33 (find_package)
+[1.348s]   /home/jnu/anaconda3/envs/isaaclab/share/ament_cmake_core/cmake/core/ament_execute_extensions.cmake:48 (include)
+[1.348s]   /home/jnu/anaconda3/envs/isaaclab/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:286 (ament_execute_extensions)
+[1.348s]   CMakeLists.txt:28 (rosidl_generate_interfaces)
+[1.348s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[1.348s] [0m
+[1.349s] -- Found PythonLibs: /home/jnu/anaconda3/envs/isaaclab/lib/libpython3.11.so (found suitable version "3.11.14", minimum required is "3.5")
+[1.350s] -- Using PYTHON_EXECUTABLE: /home/jnu/anaconda3/envs/isaaclab/bin/python3
+[1.350s] -- Using PYTHON_INCLUDE_DIRS: /home/jnu/anaconda3/envs/isaaclab/include/python3.11
+[1.350s] -- Using PYTHON_LIBRARIES: /home/jnu/anaconda3/envs/isaaclab/lib/libpython3.11.so
+[1.368s] -- Found PythonExtra: .so
+[2.787s] -- Found Python: /home/jnu/anaconda3/envs/isaaclab/bin/python3.11 (found version "3.11.14") found components: Interpreter Development NumPy Development.Module Development.Embed
+[2.842s] -- Configuring done (2.8s)
+[2.867s] -- Generating done (0.0s)
+[2.876s] -- Build files have been written to: /home/jnu/isaac_ws/build/unitree_api
+[2.879s] Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api
+[2.880s] Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --build /home/jnu/isaac_ws/build/unitree_api -- -j24 -l24
+[2.902s] [  1%] [1m[34mGenerating C code for ROS interfaces[0m
+[2.905s] [  2%] [1m[34mGenerating DDS interfaces[0m
+[2.906s] [  3%] [1m[34mGenerating C++ code for ROS interfaces[0m
+[2.911s] [  3%] Built target ament_cmake_python_copy_unitree_api
+[2.999s] running egg_info
+[3.004s] creating unitree_api.egg-info
+[3.004s] writing unitree_api.egg-info/PKG-INFO
+[3.004s] writing dependency_links to unitree_api.egg-info/dependency_links.txt
+[3.004s] writing top-level names to unitree_api.egg-info/top_level.txt
+[3.004s] writing manifest file 'unitree_api.egg-info/SOURCES.txt'
+[3.018s] reading manifest file 'unitree_api.egg-info/SOURCES.txt'
+[3.018s] writing manifest file 'unitree_api.egg-info/SOURCES.txt'
+[3.027s] [  3%] Built target unitree_api__dds_connext_idl
+[3.033s] [  3%] Built target ament_cmake_python_build_unitree_api_egg
+[3.098s] [  6%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/request_identity__functions.c.o[0m
+[3.098s] [  6%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/request_header__functions.c.o[0m
+[3.098s] [  6%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/request__functions.c.o[0m
+[3.098s] [  7%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/request_policy__functions.c.o[0m
+[3.098s] [  9%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/request_lease__functions.c.o[0m
+[3.098s] [ 10%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/response__functions.c.o[0m
+[3.098s] [ 11%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/response_header__functions.c.o[0m
+[3.099s] [ 12%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_c.dir/rosidl_generator_c/unitree_api/msg/detail/response_status__functions.c.o[0m
+[3.116s] [ 12%] Built target unitree_api__cpp
+[3.120s] [ 13%] [1m[34mGenerating C++ type support dispatch for ROS interfaces[0m
+[3.120s] [ 14%] [1m[34mGenerating C++ type support for eProsima Fast-RTPS[0m
+[3.121s] [ 15%] [1m[34mGenerating C++ introspection for ROS interfaces[0m
+[3.180s] [ 17%] [1m[32mLinking C shared library libunitree_api__rosidl_generator_c.so[0m
+[3.203s] [ 17%] Built target unitree_api__rosidl_generator_c
+[3.209s] [ 19%] [1m[34mGenerating C type support for eProsima Fast-RTPS[0m
+[3.209s] [ 19%] [1m[34mGenerating C introspection for ROS interfaces[0m
+[3.209s] [ 20%] [1m[34mGenerating C type support dispatch for ROS interfaces[0m
+[3.250s] [ 21%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/request_policy__type_support.cpp.o[0m
+[3.250s] [ 22%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/request_lease__type_support.cpp.o[0m
+[3.250s] [ 23%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/request__type_support.cpp.o[0m
+[3.250s] [ 25%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/request_header__type_support.cpp.o[0m
+[3.250s] [ 26%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/request_identity__type_support.cpp.o[0m
+[3.251s] [ 27%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/response__type_support.cpp.o[0m
+[3.251s] [ 28%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/response_header__type_support.cpp.o[0m
+[3.251s] [ 29%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/unitree_api/msg/response_status__type_support.cpp.o[0m
+[3.299s] [ 30%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/request__type_support.cpp.o[0m
+[3.300s] [ 34%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/request_identity__type_support.cpp.o[0m
+[3.300s] [ 34%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/request_lease__type_support.cpp.o[0m
+[3.300s] [ 34%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/request_header__type_support.cpp.o[0m
+[3.300s] [ 35%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/response__type_support.cpp.o[0m
+[3.300s] [ 37%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/response_header__type_support.cpp.o[0m
+[3.300s] [ 37%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/response_status__type_support.cpp.o[0m
+[3.301s] [ 38%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/unitree_api/msg/detail/request_policy__type_support.cpp.o[0m
+[3.391s] [ 40%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/request__type_support.cpp.o[0m
+[3.391s] [ 40%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/request_header__type_support.cpp.o[0m
+[3.391s] [ 42%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/request_policy__type_support.cpp.o[0m
+[3.391s] [ 43%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/request_identity__type_support.cpp.o[0m
+[3.400s] [ 44%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/request_lease__type_support.cpp.o[0m
+[3.453s] [ 45%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/response__type_support.cpp.o[0m
+[3.479s] [ 46%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/request_header__type_support.cpp.o[0m
+[3.483s] [ 47%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/request__type_support.cpp.o[0m
+[3.491s] [ 48%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/request_lease__type_support.cpp.o[0m
+[3.491s] [ 50%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/request_identity__type_support.cpp.o[0m
+[3.521s] [ 51%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/response_status__type_support.cpp.o[0m
+[3.522s] [ 52%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/unitree_api/msg/detail/dds_fastrtps/response_header__type_support.cpp.o[0m
+[3.527s] [ 53%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/request_policy__type_support.cpp.o[0m
+[3.535s] [ 54%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/request__type_support_c.cpp.o[0m
+[3.536s] [ 55%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/response__type_support.cpp.o[0m
+[3.544s] [ 56%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/request__type_support.c.o[0m
+[3.556s] [ 57%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/request_header__type_support_c.cpp.o[0m
+[3.557s] [ 59%] [1m[32mLinking CXX shared library libunitree_api__rosidl_typesupport_cpp.so[0m
+[3.560s] [ 60%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/request_header__type_support.c.o[0m
+[3.560s] [ 61%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/response_header__type_support.cpp.o[0m
+[3.562s] [ 62%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/request_identity__type_support_c.cpp.o[0m
+[3.576s] [ 63%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/request_identity__type_support.c.o[0m
+[3.591s] [ 64%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/request_lease__type_support.c.o[0m
+[3.595s] [ 65%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/request_policy__type_support.c.o[0m
+[3.595s] [ 67%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_c.dir/rosidl_typesupport_c/unitree_api/msg/response_status__type_support.cpp.o[0m
+[3.601s] [ 67%] Built target unitree_api__rosidl_typesupport_cpp
+[3.608s] [ 68%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/response__type_support.c.o[0m
+[3.618s] [ 69%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/response_header__type_support.c.o[0m
+[3.620s] [ 70%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/unitree_api/msg/detail/response_status__type_support.c.o[0m
+[3.625s] [ 71%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/request_lease__type_support_c.cpp.o[0m
+[3.630s] [ 72%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/response__type_support_c.cpp.o[0m
+[3.631s] [ 73%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/request_policy__type_support_c.cpp.o[0m
+[3.631s] [ 75%] [1m[32mLinking CXX shared library libunitree_api__rosidl_typesupport_c.so[0m
+[3.632s] [ 76%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/response_header__type_support_c.cpp.o[0m
+[3.654s] [ 77%] [32mBuilding CXX object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/unitree_api/msg/detail/response_status__type_support_c.cpp.o[0m
+[3.674s] [ 79%] [1m[32mLinking C shared library libunitree_api__rosidl_typesupport_introspection_c.so[0m
+[3.675s] [ 79%] [1m[32mLinking CXX shared library libunitree_api__rosidl_typesupport_introspection_cpp.so[0m
+[3.680s] [ 79%] Built target unitree_api__rosidl_typesupport_c
+[3.704s] [ 79%] Built target unitree_api__rosidl_typesupport_introspection_c
+[3.777s] [ 79%] Built target unitree_api__rosidl_typesupport_introspection_cpp
+[4.022s] [ 80%] [1m[32mLinking CXX shared library libunitree_api__rosidl_typesupport_fastrtps_cpp.so[0m
+[4.065s] [ 80%] Built target unitree_api__rosidl_typesupport_fastrtps_cpp
+[4.096s] [ 81%] [1m[32mLinking CXX shared library libunitree_api__rosidl_typesupport_fastrtps_c.so[0m
+[4.141s] [ 81%] Built target unitree_api__rosidl_typesupport_fastrtps_c
+[4.151s] [ 81%] Built target unitree_api
+[4.162s] [ 82%] [1m[34mGenerating Python code for ROS interfaces[0m
+[4.584s] [ 82%] Built target unitree_api__py
+[4.595s] [ 84%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_request_s.c.o[0m
+[4.595s] [ 85%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_request_header_s.c.o[0m
+[4.597s] [ 86%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_request_identity_s.c.o[0m
+[4.603s] [ 87%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_request_policy_s.c.o[0m
+[4.603s] [ 88%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_response_s.c.o[0m
+[4.604s] [ 89%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_request_lease_s.c.o[0m
+[4.608s] [ 90%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_response_header_s.c.o[0m
+[4.617s] [ 92%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_generator_py.dir/rosidl_generator_py/unitree_api/msg/_response_status_s.c.o[0m
+[4.863s] [ 93%] [1m[32mLinking C shared library rosidl_generator_py/unitree_api/libunitree_api__rosidl_generator_py.so[0m
+[4.918s] [ 93%] Built target unitree_api__rosidl_generator_py
+[4.933s] [ 94%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/unitree_api/_unitree_api_s.ep.rosidl_typesupport_c.c.o[0m
+[4.936s] [ 96%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/unitree_api/_unitree_api_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[4.936s] [ 96%] [32mBuilding C object CMakeFiles/unitree_api__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/unitree_api/_unitree_api_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[5.137s] [ 97%] [1m[32mLinking C shared library rosidl_generator_py/unitree_api/unitree_api_s__rosidl_typesupport_introspection_c.cpython-311-x86_64-linux-gnu.so[0m
+[5.151s] [ 98%] [1m[32mLinking C shared library rosidl_generator_py/unitree_api/unitree_api_s__rosidl_typesupport_fastrtps_c.cpython-311-x86_64-linux-gnu.so[0m
+[5.153s] [100%] [1m[32mLinking C shared library rosidl_generator_py/unitree_api/unitree_api_s__rosidl_typesupport_c.cpython-311-x86_64-linux-gnu.so[0m
+[5.179s] [100%] Built target unitree_api__rosidl_typesupport_introspection_c__pyext
+[5.195s] [100%] Built target unitree_api__rosidl_typesupport_c__pyext
+[5.200s] [100%] Built target unitree_api__rosidl_typesupport_fastrtps_c__pyext
+[5.213s] Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --build /home/jnu/isaac_ws/build/unitree_api -- -j24 -l24
+[5.219s] Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --install /home/jnu/isaac_ws/build/unitree_api
+[5.235s] -- Install configuration: ""
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/ament_index/resource_index/rosidl_interfaces/unitree_api
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__functions.c
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__functions.h
+[5.235s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__functions.c
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__functions.c
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__functions.c
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__functions.c
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__type_support.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__functions.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__struct.h
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__functions.c
+[5.236s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__functions.c
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__struct.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__functions.c
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__struct.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__functions.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response_status.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/rosidl_generator_c__visibility_control.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_policy.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_header.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_identity.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response_header.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_lease.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_generator_c.so
+[5.237s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.237s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.237s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__rosidl_typesupport_fastrtps_c.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__rosidl_typesupport_fastrtps_c.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__rosidl_typesupport_fastrtps_c.h
+[5.237s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__rosidl_typesupport_fastrtps_c.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__rosidl_typesupport_fastrtps_c.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__rosidl_typesupport_fastrtps_c.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__rosidl_typesupport_fastrtps_c.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__rosidl_typesupport_fastrtps_c.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_fastrtps_c.so
+[5.238s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_fastrtps_c.so" to ""
+[5.238s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.238s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.238s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__builder.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__struct.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__type_support.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__builder.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__type_support.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__traits.hpp
+[5.238s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__traits.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__struct.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__type_support.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__struct.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__traits.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__traits.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__struct.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__traits.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__struct.hpp
+[5.239s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__traits.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__type_support.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__traits.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__builder.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__builder.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__type_support.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__type_support.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__builder.hpp
+[5.242s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__struct.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__builder.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__traits.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__builder.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__builder.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__struct.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__type_support.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__type_support.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__struct.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response_status.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_identity.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/rosidl_generator_cpp__visibility_control.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_header.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_lease.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response_header.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/response.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/request_policy.hpp
+[5.243s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.243s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.243s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__rosidl_typesupport_fastrtps_cpp.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/dds_fastrtps
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__rosidl_typesupport_fastrtps_cpp.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__rosidl_typesupport_fastrtps_cpp.hpp
+[5.243s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__rosidl_typesupport_fastrtps_cpp.hpp
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__rosidl_typesupport_fastrtps_cpp.hpp
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__rosidl_typesupport_fastrtps_cpp.hpp
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__rosidl_typesupport_fastrtps_cpp.hpp
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__rosidl_typesupport_fastrtps_cpp.hpp
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_fastrtps_cpp.so
+[5.244s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.244s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.244s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__type_support.c
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__rosidl_typesupport_introspection_c.h
+[5.244s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_introspection_c.so
+[5.245s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_introspection_c.so" to ""
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_c.so
+[5.245s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_c.so" to ""
+[5.245s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api
+[5.245s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg
+[5.245s] -- Up-to-date: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_lease__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_policy__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_status__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_header__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/request_identity__rosidl_typesupport_introspection_cpp.hpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/include/unitree_api/unitree_api/msg/detail/response_header__type_support.cpp
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_introspection_cpp.so
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_typesupport_cpp.so
+[5.245s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/pythonpath.sh
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/pythonpath.dsv
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api-0.0.0-py3.11.egg-info
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api-0.0.0-py3.11.egg-info/top_level.txt
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api-0.0.0-py3.11.egg-info/SOURCES.txt
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api-0.0.0-py3.11.egg-info/PKG-INFO
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api-0.0.0-py3.11.egg-info/dependency_links.txt
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_introspection_c.cpython-311-x86_64-linux-gnu.so
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/_unitree_api_s.ep.rosidl_typesupport_fastrtps_c.c
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_fastrtps_c.cpython-311-x86_64-linux-gnu.so
+[5.246s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/__init__.py
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_c.cpython-311-x86_64-linux-gnu.so
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/libunitree_api__rosidl_generator_py.so
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response_header.py
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_header_s.c
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_header.py
+[5.249s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response_status.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/__init__.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_policy_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_identity.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_lease_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response_status_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_response_header_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_policy.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_identity_s.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/msg/_request_lease.py
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/_unitree_api_s.ep.rosidl_typesupport_introspection_c.c
+[5.250s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/_unitree_api_s.ep.rosidl_typesupport_c.c
+[5.270s] Listing 'lib/python3.11/site-packages/unitree_api'...
+[5.270s] Can't list 'lib/python3.11/site-packages/unitree_api'
+[5.279s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_fastrtps_c.cpython-311-x86_64-linux-gnu.so
+[5.279s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_fastrtps_c.cpython-311-x86_64-linux-gnu.so" to ""
+[5.279s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_introspection_c.cpython-311-x86_64-linux-gnu.so
+[5.279s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_introspection_c.cpython-311-x86_64-linux-gnu.so" to ""
+[5.279s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_c.cpython-311-x86_64-linux-gnu.so
+[5.279s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/python3.11/site-packages/unitree_api/unitree_api_s__rosidl_typesupport_c.cpython-311-x86_64-linux-gnu.so" to ""
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_generator_py.so
+[5.280s] -- Set non-toolchain portion of runtime path of "/home/jnu/isaac_ws/install/unitree_api/lib/libunitree_api__rosidl_generator_py.so" to ""
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/Request.idl
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestHeader.idl
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestIdentity.idl
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestLease.idl
+[5.280s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestPolicy.idl
+[5.282s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/Response.idl
+[5.282s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/ResponseHeader.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/ResponseStatus.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/Request.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestHeader.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestIdentity.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestLease.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/RequestPolicy.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/Response.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/ResponseHeader.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/ResponseStatus.msg
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/ResponseStatus_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/ResponseHeader_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/RequestIdentity_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/Request_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/Response_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/RequestHeader_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/RequestLease_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/msg/dds_connext/RequestPolicy_.idl
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/ament_index/resource_index/package_run_dependencies/unitree_api
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/ament_index/resource_index/parent_prefix_path/unitree_api
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/ament_prefix_path.sh
+[5.283s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/ament_prefix_path.dsv
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/path.sh
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/environment/path.dsv
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/local_setup.bash
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/local_setup.sh
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/local_setup.zsh
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/local_setup.dsv
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/package.dsv
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/ament_index/resource_index/packages/unitree_api
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_generator_cExport.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_generator_cExport-noconfig.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_typesupport_fastrtps_cExport.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_generator_cppExport.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_typesupport_fastrtps_cppExport.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[5.284s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_introspection_cExport.cmake
+[5.285s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[5.285s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_cExport.cmake
+[5.288s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_cExport-noconfig.cmake
+[5.288s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_introspection_cppExport.cmake
+[5.289s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[5.289s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_cppExport.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_api__rosidl_typesupport_cppExport-noconfig.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_generator_pyExport.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/export_unitree_api__rosidl_generator_pyExport-noconfig.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/rosidl_cmake-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/ament_cmake_export_dependencies-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/ament_cmake_export_include_directories-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/ament_cmake_export_libraries-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/ament_cmake_export_targets-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_apiConfig.cmake
+[5.290s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/cmake/unitree_apiConfig-version.cmake
+[5.291s] -- Installing: /home/jnu/isaac_ws/install/unitree_api/share/unitree_api/package.xml
+[5.295s] Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --install /home/jnu/isaac_ws/build/unitree_api

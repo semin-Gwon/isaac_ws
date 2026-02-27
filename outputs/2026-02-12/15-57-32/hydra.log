@@ -1,0 +1,12 @@
+[2026-02-12 15:57:32,195][isaaclab.envs.manager_based_env][WARNING] - Seed not set for the environment. The environment creation may not be deterministic.
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - Looking for Python nodes to register in omni.physx.fabric-107.3.26
+[2026-02-12 15:57:32,205][ogn_registration][INFO] -  -> Registered nodes from module omni.physxfabric at /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - Registering nodes in /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 imported as omni.physxfabric with AutoNode config {}
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - Registering Python Node Types from omni.physxfabric at /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 in omni.physx.fabric
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - ========================================================================================================================
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - No dependency on omni.graph, therefore no nodes to register in omni.physx.fabric
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - ...None found, no registration to do
+[2026-02-12 15:57:32,205][ogn_registration][INFO] - ...Skipping: No OmniGraph presence in the module omni.physxfabric - No nodes in this module, do not remember it
+[2026-02-12 15:57:32,206][ogn_registration][INFO] - Destroying registration record for omni.physx.fabric
+[2026-02-12 15:57:32,206][ogn_registration][INFO] - OGN register omni.physx.fabric-107.3.26 took 840960.000000
+[2026-02-12 15:57:36,399][isaaclab.envs.mdp.commands.velocity_command][WARNING] - The velocity command has the 'ranges.heading' attribute set to '(-3.141592653589793, 3.141592653589793)' but the heading command is not active. Consider setting the flag for the heading command to True.

@@ -1,0 +1,48 @@
+[0.004s] Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api
+[0.014s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.014s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.014s]   CMake.
+[0.014s] 
+[0.014s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.014s]   to tell CMake that the project requires at least <min> but has been updated
+[0.014s]   to work with policies introduced by <max> or earlier.
+[0.014s] 
+[0.014s] [0m
+[0.042s] -- The C compiler identification is GNU 14.3.0
+[0.106s] -- The CXX compiler identification is GNU 14.3.0
+[0.112s] -- Detecting C compiler ABI info
+[0.192s] -- Detecting C compiler ABI info - done
+[0.207s] -- Check for working C compiler: /home/jnu/anaconda3/envs/isaaclab/bin/x86_64-conda-linux-gnu-cc - skipped
+[0.207s] -- Detecting C compile features
+[0.207s] -- Detecting C compile features - done
+[0.221s] -- Detecting CXX compiler ABI info
+[0.321s] -- Detecting CXX compiler ABI info - done
+[0.340s] -- Check for working CXX compiler: /home/jnu/anaconda3/envs/isaaclab/bin/x86_64-conda-linux-gnu-c++ - skipped
+[0.340s] -- Detecting CXX compile features
+[0.340s] -- Detecting CXX compile features - done
+[0.345s] -- Found ament_cmake: 1.3.12 (/home/jnu/anaconda3/envs/isaaclab/share/ament_cmake/cmake)
+[0.468s] -- Found Python3: /home/jnu/anaconda3/envs/isaaclab/bin/python3 (found version "3.11.14") found components: Interpreter
+[0.513s] -- Found geometry_msgs: 4.9.0 (/home/jnu/anaconda3/envs/isaaclab/share/geometry_msgs/cmake)
+[0.533s] -- Found rosidl_generator_c: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_c/cmake)
+[0.535s] -- Found rosidl_adapter: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_adapter/cmake)
+[0.540s] -- Found rosidl_generator_cpp: 3.1.6 (/home/jnu/anaconda3/envs/isaaclab/share/rosidl_generator_cpp/cmake)
+[0.546s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.555s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.583s] [31mCMake Error at CMakeLists.txt:25 (find_package):
+[0.583s]   By not providing "Findrosidl_default_generators.cmake" in CMAKE_MODULE_PATH
+[0.583s]   this project has asked CMake to find a package configuration file provided
+[0.583s]   by "rosidl_default_generators", but CMake did not find one.
+[0.583s] 
+[0.583s]   Could not find a package configuration file provided by
+[0.583s]   "rosidl_default_generators" with any of the following names:
+[0.583s] 
+[0.583s]     rosidl_default_generatorsConfig.cmake
+[0.583s]     rosidl_default_generators-config.cmake
+[0.583s] 
+[0.584s]   Add the installation prefix of "rosidl_default_generators" to
+[0.584s]   CMAKE_PREFIX_PATH or set "rosidl_default_generators_DIR" to a directory
+[0.584s]   containing one of the above files.  If "rosidl_default_generators" provides
+[0.584s]   a separate development package or SDK, be sure it has been installed.
+[0.584s] 
+[0.584s] [0m
+[0.584s] -- Configuring incomplete, errors occurred!

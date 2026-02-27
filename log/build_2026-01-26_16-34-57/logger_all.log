@@ -1,0 +1,133 @@
+[0.056s] [34mcolcon[0m [1;30mDEBUG[0m [32mCommand line arguments: ['/home/jnu/anaconda3/envs/isaaclab/bin/colcon', 'build', '--packages-select', 'unitree_go', 'unitree_api'][0m
+[0.056s] [34mcolcon[0m [1;30mDEBUG[0m [32mParsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=24, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['unitree_go', 'unitree_api'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x77e49ac0aad0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x77e49ac0a310>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x77e49ac0a310>>)[0m
+[0.072s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) check parameters
+[0.072s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) check parameters
+[0.072s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) check parameters
+[0.073s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) check parameters
+[0.073s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(colcon_meta) discover
+[0.073s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) discover
+[0.073s] [34mcolcon.colcon_core.package_discovery[0m [1;30mINFO[0m Crawling recursively for packages in '/home/jnu/isaac_ws'
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore'
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ignore_ament_install'
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_pkg']
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_pkg'
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['colcon_meta']
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'colcon_meta'
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['ros']
+[0.073s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'ros'
+[0.086s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['cmake', 'python']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'cmake'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'python'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extensions ['python_setup_py']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(.) by extension 'python_setup_py'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(build) by extension 'ignore'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(build) ignored
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(install) by extension 'ignore'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(install) ignored
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(log) by extension 'ignore'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(log) ignored
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'ignore'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'ignore_ament_install'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['colcon_pkg']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'colcon_pkg'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['colcon_meta']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'colcon_meta'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['ros']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'ros'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['cmake', 'python']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'cmake'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'python'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extensions ['python_setup_py']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src) by extension 'python_setup_py'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extensions ['ignore', 'ignore_ament_install']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extension 'ignore'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extension 'ignore_ament_install'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extensions ['colcon_pkg']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extension 'colcon_pkg'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extensions ['colcon_meta']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extension 'colcon_meta'
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extensions ['ros']
+[0.087s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_api) by extension 'ros'
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage 'src/unitree_api' with type 'ros.ament_cmake' and name 'unitree_api'[0m
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extensions ['ignore', 'ignore_ament_install']
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extension 'ignore'
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extension 'ignore_ament_install'
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extensions ['colcon_pkg']
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extension 'colcon_pkg'
+[0.088s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extensions ['colcon_meta']
+[0.089s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extension 'colcon_meta'
+[0.089s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extensions ['ros']
+[0.089s] [34mcolcon.colcon_core.package_identification[0m [1;30mLevel 1[0m _identify(src/unitree_go) by extension 'ros'
+[0.089s] [34mcolcon.colcon_core.package_identification[0m [1;30mDEBUG[0m [32mPackage 'src/unitree_go' with type 'ros.ament_cmake' and name 'unitree_go'[0m
+[0.089s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(recursive) using defaults
+[0.089s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) discover
+[0.089s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(ignore) using defaults
+[0.089s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) discover
+[0.089s] [34mcolcon.colcon_core.package_discovery[0m [1;30mLevel 1[0m discover_packages(path) using defaults
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_target' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_clean_cache' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_clean_first' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'cmake_force_configure' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'ament_cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'catkin_cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_api' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'unitree_api' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jnu/isaac_ws/build/unitree_api', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jnu/isaac_ws/install/unitree_api', 'merge_install': False, 'path': '/home/jnu/isaac_ws/src/unitree_api', 'symlink_install': False, 'test_result_base': None}[0m
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_target' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_clean_cache' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_clean_first' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'cmake_force_configure' from command line to 'False'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'ament_cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'catkin_cmake_args' from command line to 'None'
+[0.095s] [34mcolcon.colcon_core.verb[0m [1;30mLevel 5[0m set package 'unitree_go' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.096s] [34mcolcon.colcon_core.verb[0m [1;30mDEBUG[0m [32mBuilding package 'unitree_go' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jnu/isaac_ws/build/unitree_go', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jnu/isaac_ws/install/unitree_go', 'merge_install': False, 'path': '/home/jnu/isaac_ws/src/unitree_go', 'symlink_install': False, 'test_result_base': None}[0m
+[0.096s] [34mcolcon.colcon_core.executor[0m [1;30mINFO[0m Executing jobs using 'parallel' executor
+[0.096s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete[0m
+[0.096s] [34mcolcon.colcon_ros.task.ament_cmake.build[0m [1;30mINFO[0m Building ROS package in '/home/jnu/isaac_ws/src/unitree_api' with build type 'ament_cmake'
+[0.096s] [34mcolcon.colcon_cmake.task.cmake.build[0m [1;30mINFO[0m Building CMake package in '/home/jnu/isaac_ws/src/unitree_api'
+[0.097s] [34mcolcon.colcon_core.plugin_system[0m [1;30mINFO[0m Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.097s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.097s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[0.098s] [34mcolcon.colcon_ros.task.ament_cmake.build[0m [1;30mINFO[0m Building ROS package in '/home/jnu/isaac_ws/src/unitree_go' with build type 'ament_cmake'
+[0.098s] [34mcolcon.colcon_cmake.task.cmake.build[0m [1;30mINFO[0m Building CMake package in '/home/jnu/isaac_ws/src/unitree_go'
+[0.098s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.098s] [34mcolcon.colcon_core.shell[0m [1;30mDEBUG[0m [32mSkip shell extension 'dsv' for command environment[0m
+[0.100s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api[0m
+[0.102s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoking command in '/home/jnu/isaac_ws/build/unitree_go': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_go -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_go[0m
+[0.293s] [34mcolcon.colcon_core.event_handler.log_command[0m [1;30mDEBUG[0m [32mInvoked command in '/home/jnu/isaac_ws/build/unitree_go' returned '1': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_go -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_go[0m
+[0.298s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_environment_scripts_only(unitree_go)
+[0.299s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go' for CMake module files
+[0.300s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go' for CMake config files
+[0.301s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go/bin'
+[0.301s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go/lib/pkgconfig/unitree_go.pc'
+[0.302s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go/lib/python3.11/site-packages'
+[0.302s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m checking '/home/jnu/isaac_ws/install/unitree_go/bin'
+[0.302s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jnu/isaac_ws/install/unitree_go/share/unitree_go/package.ps1'
+[0.302s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package descriptor '/home/jnu/isaac_ws/install/unitree_go/share/unitree_go/package.dsv'
+[0.303s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jnu/isaac_ws/install/unitree_go/share/unitree_go/package.sh'
+[0.303s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jnu/isaac_ws/install/unitree_go/share/unitree_go/package.bash'
+[0.303s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating package script '/home/jnu/isaac_ws/install/unitree_go/share/unitree_go/package.zsh'
+[0.304s] [34mcolcon.colcon_core.environment[0m [1;30mLevel 1[0m create_file_with_runtime_dependencies(/home/jnu/isaac_ws/install/unitree_go/share/colcon-core/packages/unitree_go)
+[0.319s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mclosing loop[0m
+[0.319s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mloop closed[0m
+[0.319s] [34mcolcon.colcon_parallel_executor.executor.parallel[0m [1;30mDEBUG[0m [32mrun_until_complete finished with '1'[0m
+[0.319s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoining thread[0m
+[0.320s] [34mcolcon.colcon_core.event_reactor[0m [1;30mDEBUG[0m [32mjoined thread[0m
+[0.320s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jnu/isaac_ws/install/local_setup.ps1'
+[0.320s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/jnu/isaac_ws/install/_local_setup_util_ps1.py'
+[0.320s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jnu/isaac_ws/install/setup.ps1'
+[0.321s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jnu/isaac_ws/install/local_setup.sh'
+[0.321s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix util module '/home/jnu/isaac_ws/install/_local_setup_util_sh.py'
+[0.321s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jnu/isaac_ws/install/setup.sh'
+[0.321s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jnu/isaac_ws/install/local_setup.bash'
+[0.322s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jnu/isaac_ws/install/setup.bash'
+[0.322s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix script '/home/jnu/isaac_ws/install/local_setup.zsh'
+[0.322s] [34mcolcon.colcon_core.shell[0m [1;30mINFO[0m Creating prefix chain script '/home/jnu/isaac_ws/install/setup.zsh'

@@ -1,0 +1,31 @@
+{
+  "package_name": "unitree_go",
+  "non_idl_tuples": [
+    "/home/jnu/isaac_ws/src/unitree_go:msg/AudioData.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/BmsCmd.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/BmsState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/Error.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/Go2FrontVideoData.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/HeightMap.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/IMUState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/InterfaceConfig.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/LidarState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/LowCmd.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/LowState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/MotorCmd.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/MotorCmds.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/MotorState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/MotorStates.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/PathPoint.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/Req.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/Res.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/SportModeCmd.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/SportModeState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/TimeSpec.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/UwbState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/UwbSwitch.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/VoxelMapCompressed.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/VoxelHeightMapState.msg",
+    "/home/jnu/isaac_ws/src/unitree_go:msg/WirelessController.msg"
+  ]
+}

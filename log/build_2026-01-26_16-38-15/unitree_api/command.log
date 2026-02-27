@@ -1,0 +1,6 @@
+Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api
+Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_api -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_api
+Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --build /home/jnu/isaac_ws/build/unitree_api -- -j24 -l24
+Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --build /home/jnu/isaac_ws/build/unitree_api -- -j24 -l24
+Invoking command in '/home/jnu/isaac_ws/build/unitree_api': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --install /home/jnu/isaac_ws/build/unitree_api
+Invoked command in '/home/jnu/isaac_ws/build/unitree_api' returned '0': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake --install /home/jnu/isaac_ws/build/unitree_api

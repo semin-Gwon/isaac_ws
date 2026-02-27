@@ -1,0 +1,43 @@
+[0.003s] Invoking command in '/home/jnu/isaac_ws/build/unitree_go': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_go -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_go
+[0.012s] [0mCMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+[0.012s]   Compatibility with CMake < 3.10 will be removed from a future version of
+[0.012s]   CMake.
+[0.012s] 
+[0.012s]   Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+[0.012s]   to tell CMake that the project requires at least <min> but has been updated
+[0.012s]   to work with policies introduced by <max> or earlier.
+[0.012s] 
+[0.012s] [0m
+[0.040s] -- The C compiler identification is GNU 14.3.0
+[0.099s] -- The CXX compiler identification is GNU 14.3.0
+[0.105s] -- Detecting C compiler ABI info
+[0.190s] -- Detecting C compiler ABI info - done
+[0.205s] -- Check for working C compiler: /home/jnu/anaconda3/envs/isaaclab/bin/x86_64-conda-linux-gnu-cc - skipped
+[0.205s] -- Detecting C compile features
+[0.205s] -- Detecting C compile features - done
+[0.220s] -- Detecting CXX compiler ABI info
+[0.319s] -- Detecting CXX compiler ABI info - done
+[0.339s] -- Check for working CXX compiler: /home/jnu/anaconda3/envs/isaaclab/bin/x86_64-conda-linux-gnu-c++ - skipped
+[0.340s] -- Detecting CXX compile features
+[0.340s] -- Detecting CXX compile features - done
+[0.345s] -- Found ament_cmake: 1.3.12 (/home/jnu/anaconda3/envs/isaaclab/share/ament_cmake/cmake)
+[0.463s] -- Found Python3: /home/jnu/anaconda3/envs/isaaclab/bin/python3 (found version "3.11.14") found components: Interpreter
+[0.510s] [31mCMake Error at CMakeLists.txt:24 (find_package):
+[0.510s]   By not providing "Findrosidl_default_generators.cmake" in CMAKE_MODULE_PATH
+[0.510s]   this project has asked CMake to find a package configuration file provided
+[0.510s]   by "rosidl_default_generators", but CMake did not find one.
+[0.510s] 
+[0.510s]   Could not find a package configuration file provided by
+[0.510s]   "rosidl_default_generators" with any of the following names:
+[0.510s] 
+[0.510s]     rosidl_default_generatorsConfig.cmake
+[0.510s]     rosidl_default_generators-config.cmake
+[0.510s] 
+[0.510s]   Add the installation prefix of "rosidl_default_generators" to
+[0.510s]   CMAKE_PREFIX_PATH or set "rosidl_default_generators_DIR" to a directory
+[0.511s]   containing one of the above files.  If "rosidl_default_generators" provides
+[0.511s]   a separate development package or SDK, be sure it has been installed.
+[0.511s] 
+[0.511s] [0m
+[0.511s] -- Configuring incomplete, errors occurred!
+[0.513s] Invoked command in '/home/jnu/isaac_ws/build/unitree_go' returned '1': CONDA_PROMPT_MODIFIER=(isaaclab) /home/jnu/anaconda3/envs/isaaclab/bin/cmake /home/jnu/isaac_ws/src/unitree_go -DCMAKE_INSTALL_PREFIX=/home/jnu/isaac_ws/install/unitree_go

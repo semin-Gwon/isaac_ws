@@ -1,0 +1,20 @@
+[2026-02-11 16:12:58,632][isaaclab.envs.manager_based_env][WARNING] - Seed not set for the environment. The environment creation may not be deterministic.
+[2026-02-11 16:12:58,642][ogn_registration][INFO] - Looking for Python nodes to register in omni.physx.fabric-107.3.26
+[2026-02-11 16:12:58,642][ogn_registration][INFO] -  -> Registered nodes from module omni.physxfabric at /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353
+[2026-02-11 16:12:58,642][ogn_registration][INFO] - Registering nodes in /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 imported as omni.physxfabric with AutoNode config {}
+[2026-02-11 16:12:58,642][ogn_registration][INFO] - Registering Python Node Types from omni.physxfabric at /home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/extscache/omni.physx.fabric-107.3.26+107.3.3.lx64.r.cp311.u353 in omni.physx.fabric
+[2026-02-11 16:12:58,642][ogn_registration][INFO] - ========================================================================================================================
+[2026-02-11 16:12:58,643][ogn_registration][INFO] - No dependency on omni.graph, therefore no nodes to register in omni.physx.fabric
+[2026-02-11 16:12:58,643][ogn_registration][INFO] - ...None found, no registration to do
+[2026-02-11 16:12:58,643][ogn_registration][INFO] - ...Skipping: No OmniGraph presence in the module omni.physxfabric - No nodes in this module, do not remember it
+[2026-02-11 16:12:58,643][ogn_registration][INFO] - Destroying registration record for omni.physx.fabric
+[2026-02-11 16:12:58,643][ogn_registration][INFO] - OGN register omni.physx.fabric-107.3.26 took 814394.000000
+[2026-02-11 16:12:58,718][ogn_registration][INFO] - Looking for Python nodes to deregister in isaacsim.ros2.bridge-4.12.4
+[2026-02-11 16:12:58,750][ogn_registration][INFO] - Deregistering Python node types in isaacsim.ros2.bridge
+[2026-02-11 16:12:58,750][ogn_registration][INFO] -     --> node type OgnROS2CameraHelperDatabase
+[2026-02-11 16:12:58,750][ogn_registration][INFO] -     --> node type OgnROS2CameraInfoHelperDatabase
+[2026-02-11 16:12:58,750][ogn_registration][INFO] -     --> node type OgnROS2RtxLidarHelperDatabase
+[2026-02-11 16:12:58,750][ogn_registration][INFO] -     --> node type OgnROS2QoSProfileDatabase
+[2026-02-11 16:12:58,750][ogn_registration][INFO] - Deregistered Python nodes in isaacsim.ros2.bridge-4.12.4
+[2026-02-11 16:12:58,750][ogn_registration][INFO] - OGN deregister isaacsim.ros2.bridge-4.12.4 took 333.77us
+[2026-02-11 16:12:58,750][ogn_registration][INFO] - Destroying registration record for isaacsim.ros2.bridge
