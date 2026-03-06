@@ -59,7 +59,7 @@
     - `/my_go2/color/image_raw_sync`
     - `/my_go2/depth/image_rect_raw_sync`
 
-- `/home/jnu/isaac_ws/env_go2.sh`
+- `/home/jnu/isaac_ws/env_go2_slam.sh`
   - 공통 환경 설정 스크립트 추가 (`local_setup.bash` 기반)
 
 ## 3) 필수 환경 변수
@@ -80,7 +80,7 @@ mkdir -p /tmp/ros_logs
 
 권장 사용(새 터미널마다 1줄):
 ```bash
-source /home/jnu/isaac_ws/env_go2.sh
+source /home/jnu/isaac_ws/env_go2_slam.sh
 ```
 
 ## 4) CycloneDDS 설정
@@ -104,7 +104,7 @@ source /home/jnu/isaac_ws/env_go2.sh
 
 ### 5-1. 터미널 A: SLAM 파이프라인 실행
 ```bash
-source /home/jnu/isaac_ws/env_go2.sh
+source /home/jnu/isaac_ws/env_go2_slam.sh
 ros2 daemon stop
 ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py
 ```
@@ -116,7 +116,7 @@ ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py use_viz:=true
 
 ### 5-2. 터미널 B: RViz 실행
 ```bash
-source /home/jnu/isaac_ws/env_go2.sh
+source /home/jnu/isaac_ws/env_go2_slam.sh
 rviz2 -d /home/jnu/isaac_ws/go2_sim.rviz
 ```
 
@@ -195,14 +195,14 @@ ros2 topic echo /my_go2/depth/image_rect_raw_sync --once
   - RViz PointCloud size를 줄여 실제 품질과 표시 품질을 분리
 
 - 새 터미널에서 항상:
-  - `source /home/jnu/isaac_ws/env_go2.sh`
+  - `source /home/jnu/isaac_ws/env_go2_slam.sh`
 
 ## 9) 권장 운영 다이어그램
 
 ```text
 (1) 환경 통일
   모든 터미널
-    -> source env_go2.sh
+    -> source env_go2_slam.sh
 
 (2) 파이프 시작
   launch go2_slam.launch.py
