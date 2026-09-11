@@ -6,7 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /PointCloud21
+        - /RGB-D Color Cloud1
+        - /RTABMap Cloud Map1
+        - /LiDAR Cloud Sync1
         - /Image1
         - /Image2
       Splitter Ratio: 0.5
@@ -32,10 +34,10 @@ Panels:
 Visualization Manager:
   Class: ""
   Displays:
-    - Alpha: 0.5
-      Cell Size: 1
+    - Alpha: 0.2
+      Cell Size: 0.5
       Class: rviz_default_plugins/Grid
-      Color: 160; 160; 164
+      Color: 90; 90; 96
       Enabled: true
       Line Style:
         Line Width: 0.029999999329447746
@@ -57,10 +59,10 @@ Visualization Manager:
         Min Value: -10
         Value: true
       Axis: Z
-      Channel Name: intensity
+      Channel Name: rgb
       Class: rviz_default_plugins/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: RGB8
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -68,10 +70,10 @@ Visualization Manager:
       Max Intensity: 4096
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: PointCloud2
+      Name: RGB-D Color Cloud
       Position Transformer: ""
       Selectable: true
-      Size (Pixels): 6
+      Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
       Topic:
@@ -80,15 +82,83 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
+        Value: /rgbd_cloud
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: rgb
+      Class: rviz_default_plugins/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: RTABMap Cloud Map
+      Position Transformer: ""
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
         Value: /cloud_map
       Use Fixed Frame: true
-      Use rainbow: true
+      Use rainbow: false
       Value: true
-    - Alpha: 0.7
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: ""
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: LiDAR Cloud Sync
+      Position Transformer: ""
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.019999999552965164
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /utlidar/cloud_sync
+      Use Fixed Frame: true
+      Use rainbow: false
+      Value: true
+    - Alpha: 0.55
       Class: rviz_default_plugins/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: OccupancyGrid
       Topic:
         Depth: 5
@@ -97,7 +167,7 @@ Visualization Manager:
         Reliability Policy: Reliable
         Filter size: 10
         Use Timestamp: false
-        Value: /grid_map
+        Value: /map
       Use Timestamp: false
       Value: true
     - Alpha: 1
@@ -218,7 +288,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10
+      Distance: 4.5
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -227,16 +297,16 @@ Visualization Manager:
       Focal Point:
         X: 0
         Y: 0
-        Z: 0
+        Z: 0.6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.785398006439209
+      Pitch: 0.44999998807907104
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.785398006439209
+      Yaw: 1.2200000286102295
     Saved: ~
 Window Geometry:
   Displays:

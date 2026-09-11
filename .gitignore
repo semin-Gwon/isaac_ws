@@ -1,0 +1,67 @@
+# ROS 2 / colcon build products and runtime logs
+/build/
+/install/
+/log/
+/logs/
+/.ros/
+*.log
+
+# Isaac Sim / Isaac Lab generated assets and downloaded policies
+/generated/
+/.pretrained_checkpoints/
+
+# Hydra run output
+/outputs/
+/multirun/
+.hydra/
+
+# RTAB-Map databases, SQLite sidecars, and exported point clouds
+# Keep these rules scoped so source assets elsewhere can be versioned.
+/go2_real/maps/*.db
+/go2_real/maps/*.db-*
+/go2_real/maps/*.ply
+/go2_real/maps/*.pcd
+
+# ROS recordings
+/bags/
+/rosbags/
+/rosbag2_*/
+*.bag
+*.bag.active
+*.db3
+*.db3-*
+*.mcap
+
+# Python bytecode, caches, environments, and packaging output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+.venv/
+venv/
+*.egg-info/
+/dist/
+
+# Local editor and agent state
+/.vscode/
+/.idea/
+/.codex/
+/.agents/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local environment configuration (keep shareable examples)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
