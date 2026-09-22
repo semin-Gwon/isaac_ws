@@ -30,7 +30,7 @@ bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" check
 
 `check`는 `LowState`, `JointState`, `Odometry`, `TFMessage`의 타입 지원과 CycloneDDS 라이브러리를 불러옵니다.
 ROS 노드를 생성하거나 실제 로봇 연결·Isaac Sim 전체 실행을 검사하지는 않습니다.
-설치가 없다면 [루트 README의 환경 준비](../../README.md#getting-started)를 확인하세요.
+설치가 없다면 [환경 준비 안내](../../docs/setup.md)를 확인하세요.
 
 ## Bash 파일의 역할
 
