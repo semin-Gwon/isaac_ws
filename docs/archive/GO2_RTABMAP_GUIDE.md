@@ -1,5 +1,7 @@
 # Go2 RTAB-Map 통합 가이드 (isaac_ws)
 
+> 과거 설계·운영 기록입니다. 이동된 파일의 경로는 갱신했지만, 현재 없는 스크립트나 이전 설정 설명이 남아 있습니다. 현재 실행 방법은 [루트 README](../../README.md)를 확인하세요.
+
 이 문서는 현재 프로젝트(`/home/jnu/isaac_ws`)에서 실제로 작업한 내용만 기준으로 정리한 실행/운영 가이드입니다.
 
 ## 1) 목표와 최종 구성
@@ -35,20 +37,20 @@
 
 ## 2) 변경된 핵심 파일
 
-- `/home/jnu/isaac_ws/go2_real/go2_visualize.py`
+- `/home/jnu/isaac_ws/go2_real/digital_twin/go2_visualize.py`
   - `rclpy` 경로 주입(isaaclab 환경 대응)
   - QoS 조정(BEST_EFFORT)
   - 진단 로그 추가
   - `fix_base=False`로 변경
 
-- `/home/jnu/isaac_ws/go2_real/go2_topic_sync.py`
+- `/home/jnu/isaac_ws/go2_real/slam/go2_topic_sync.py`
   - 다중 토픽 구독(odom/rgb/depth)
   - 환경 변수 진단 로그 출력
   - depth `passthrough` 제거 및 `16UC1/32FC1` 정규화
   - compressed depth가 `uint8`일 때 스킵(비정량 depth 보호)
   - 카메라 TF 동적 재전송 타이머 추가
 
-- `/home/jnu/isaac_ws/go2_real/go2_slam.launch.py`
+- `/home/jnu/isaac_ws/go2_real/slam/go2_slam.launch.py`
   - `topic_sync` 자동 실행
   - `use_viz` 인자 기반 `rtabmap_viz` 조건부 실행
   - 동기화 버퍼 파라미터 확장
@@ -59,7 +61,7 @@
     - `/my_go2/color/image_raw_sync`
     - `/my_go2/depth/image_rect_raw_sync`
 
-- `/home/jnu/isaac_ws/env_go2_slam.sh`
+- `/home/jnu/isaac_ws/scripts/env_ros2.sh`
   - 공통 환경 설정 스크립트 추가 (`local_setup.bash` 기반)
 
 ## 3) 필수 환경 변수
@@ -73,14 +75,14 @@ source /home/jnu/isaac_ws/install/local_setup.bash
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 export ROS_DOMAIN_ID=0
 export ROS_LOCALHOST_ONLY=0
-export CYCLONEDDS_URI=file:///home/jnu/cyclonedds.xml
+export CYCLONEDDS_URI=file:///home/jnu/isaac_ws/config/cyclonedds.xml
 export ROS_LOG_DIR=/tmp/ros_logs
 mkdir -p /tmp/ros_logs
 ```
 
 권장 사용(새 터미널마다 1줄):
 ```bash
-source /home/jnu/isaac_ws/env_go2_slam.sh
+source /home/jnu/isaac_ws/scripts/env_ros2.sh
 ```
 
 ## 4) CycloneDDS 설정
@@ -104,19 +106,19 @@ source /home/jnu/isaac_ws/env_go2_slam.sh
 
 ### 5-1. 터미널 A: SLAM 파이프라인 실행
 ```bash
-source /home/jnu/isaac_ws/env_go2_slam.sh
+source /home/jnu/isaac_ws/scripts/env_ros2.sh
 ros2 daemon stop
-ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py
+ros2 launch /home/jnu/isaac_ws/go2_real/slam/go2_slam.launch.py
 ```
 
 `rtabmap_viz`까지 켜려면:
 ```bash
-ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py use_viz:=true
+ros2 launch /home/jnu/isaac_ws/go2_real/slam/go2_slam.launch.py use_viz:=true
 ```
 
 ### 5-2. 터미널 B: RViz 실행
 ```bash
-source /home/jnu/isaac_ws/env_go2_slam.sh
+source /home/jnu/isaac_ws/scripts/env_ros2.sh
 rviz2 -d /home/jnu/isaac_ws/go2_sim.rviz
 ```
 
@@ -195,14 +197,14 @@ ros2 topic echo /my_go2/depth/image_rect_raw_sync --once
   - RViz PointCloud size를 줄여 실제 품질과 표시 품질을 분리
 
 - 새 터미널에서 항상:
-  - `source /home/jnu/isaac_ws/env_go2_slam.sh`
+  - `source /home/jnu/isaac_ws/scripts/env_ros2.sh`
 
 ## 9) 권장 운영 다이어그램
 
 ```text
 (1) 환경 통일
   모든 터미널
-    -> source env_go2_slam.sh
+    -> source scripts/env_ros2.sh
 
 (2) 파이프 시작
   launch go2_slam.launch.py

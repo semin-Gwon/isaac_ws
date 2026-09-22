@@ -1,4 +1,5 @@
 import os
+import shlex
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, LogInfo, ExecuteProcess, SetEnvironmentVariable
 from launch.conditions import IfCondition, UnlessCondition
@@ -6,6 +7,7 @@ from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 
 _THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+_WORKSPACE_DIR = os.path.dirname(os.path.dirname(_THIS_DIR))
 _MAPS_DIR = os.path.join(_THIS_DIR, "maps")
 _RTABMAP_DB_PATH = os.path.join(_MAPS_DIR, "rtabmap_real.db")
 
@@ -26,8 +28,8 @@ def generate_launch_description():
             '-c',
             [
                 'mkdir -p /tmp/ros_logs; unset PYTHONPATH; source /opt/ros/humble/setup.bash; '
-                'source /home/jnu/isaac_ws/install/local_setup.bash; '
-                '/usr/bin/python3 /home/jnu/isaac_ws/go2_real/go2_topic_sync.py --odom-eval-mode ',
+                f'source {shlex.quote(os.path.join(_WORKSPACE_DIR, "install", "local_setup.bash"))}; '
+                f'/usr/bin/python3 {shlex.quote(os.path.join(_THIS_DIR, "go2_topic_sync.py"))} --odom-eval-mode ',
                 odom_eval_mode,
                 ' --use-lidar ',
                 use_lidar,

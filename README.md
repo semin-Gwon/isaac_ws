@@ -1,442 +1,272 @@
-# Go2 SLAM & Isaac Sim Digital Twin
+# Go2 Digital Twin & SLAM
 
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu&logoColor=white)
 ![ROS 2](https://img.shields.io/badge/ROS_2-Humble-22314E?logo=ros&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11-3776AB?logo=python&logoColor=white)
 ![Isaac Sim](https://img.shields.io/badge/NVIDIA-Isaac_Sim-76B900?logo=nvidia&logoColor=white)
 
-**실제 Unitree Go2의 센서 데이터를 ROS 2로 연결해 지도를 만들고, 로봇의 자세를 Isaac Sim에 재현하는 워크스페이스입니다.**
+**실제 Unitree Go2의 관절·몸체 자세를 Isaac Sim에 표시하고, 센서 데이터로 RTAB-Map 매핑을 실험하는 ROS 2 워크스페이스입니다.**
 
-`isaac_ws`는 RGB-D·LiDAR·Odometry 입력을 동기화하는 Python 노드, RTAB-Map 실행 설정,
-RViz 설정, 실제 로봇과 시뮬레이터를 연결하는 브리지를 포함합니다.
-센서 간 시간 차이, ROS 메시지 형식, TF 좌표계, Python 실행 환경을 확인하며 통합 실험을 진행할 수 있도록 구성했습니다.
+실행 코드는 용도에 따라 두 폴더로 분리되어 있습니다.
 
-[시작하기](#getting-started) · [SLAM 실행](#slam) · [디지털 트윈](#digital-twin) ·
-[토픽과 동기화](#topics) · [문제 해결](#troubleshooting) · [폴더 구조](#structure)
-
-## 주요 기능
-
-| 기능 | 구현 내용 | 주요 파일 |
+| 용도 | 시작 위치 | 실행 환경 |
 | --- | --- | --- |
-| 센서 동기화 | RGB 수신을 기준으로 Depth·LiDAR·Odometry를 매칭하고 공통 시각으로 재발행 | [`go2_topic_sync.py`](./go2_real/go2_topic_sync.py) |
-| RGB-D SLAM | RTAB-Map 실행, RGB-D 포인트클라우드 생성, LiDAR 입력 선택 | [`go2_slam.launch.py`](./go2_real/go2_slam.launch.py) |
-| LiDAR 기반 매핑 | 외부에서 동기화한 LiDAR·Odometry를 사용한 RTAB-Map ICP 설정 | [`go2_slam_lio.launch.py`](./go2_real/go2_slam_lio.launch.py) |
-| 로봇 상태 브리지 | 12개 관절의 LowState를 필터링한 JointState로 변환, Odometry 릴레이 | [`ros2_bridge_server.py`](./go2_real/ros2_bridge_server.py) |
-| Isaac Sim 시각화 | URDF를 불러와 관절·위치·방향을 갱신하고, 선택적으로 카메라 영상 표시 | [`go2_digital_twin.py`](./go2_real/go2_digital_twin.py), [`go2_visualize.py`](./go2_real/go2_visualize.py) |
-| 지도 확인·가져오기 | RViz의 지도·이미지 표시와 RTAB-Map PLY의 USD Points 변환 | [`go2_sim.rviz`](./go2_real/go2_sim.rviz), [`go2_import_ply.py`](./go2_real/go2_import_ply.py) |
+| 디지털 트윈 | [`go2_real/digital_twin/`](./go2_real/digital_twin/README.md) | Conda `isaaclab`, Python 3.11, Isaac Sim의 ROS 라이브러리 |
+| SLAM | [`go2_real/slam/`](./go2_real/slam/README.md) | 시스템 ROS 2 Humble, Python 3.10, RTAB-Map |
 
-## 데이터 흐름
+디지털 트윈은 SLAM 없이 실행할 수 있습니다. 변환기와 Isaac Sim을 별도 프로세스로 실행하고,
+CycloneDDS 기반 ROS 2 토픽으로 데이터를 전달합니다. 보행 제어·강화학습 학습 코드는 포함하지 않습니다.
 
-```mermaid
-flowchart LR
-    robot["Go2 + 외부 센서 노드"]
-    sync["센서 동기화"]
-    slam["RTAB-Map"]
-    rviz["RViz / RTAB-Map Viz"]
-    bridge["LowState → JointState 브리지"]
-    twin["Isaac Sim 디지털 트윈"]
-
-    robot -->|RGB-D · LiDAR · Odom · IMU| sync
-    sync -->|공통 시각의 센서 입력| slam
-    slam -->|지도 · 포인트클라우드| rviz
-    robot -->|LowState · Odom| bridge
-    bridge -->|JointState · Odom 릴레이| twin
-```
-
-위 그림은 기본 SLAM과 관절 브리지를 사용하는 디지털 트윈의 흐름입니다.
-SLAM은 Isaac Sim 없이 실행할 수 있고, 디지털 트윈은 SLAM 없이 로봇 상태를 표시할 수 있습니다.
-LiDAR 전용 launch는 외부의 `*_synced` 입력을 직접 사용합니다.
-
-로봇·카메라·LiDAR 드라이버, 외부 LIO 파이프라인, Go2 URDF와 메시 파일은 별도로 준비해야 합니다.
-현재 저장소의 실행 코드는 상태 수신·매핑·시각화를 담당하며, 보행 제어나 강화학습 학습 파이프라인은 포함하지 않습니다.
-
-<a id="getting-started"></a>
-
-## 시작하기
-
-### 1. 실행 환경
-
-| 구분 | 필요한 환경 |
-| --- | --- |
-| SLAM·브리지 | Ubuntu 22.04, ROS 2 Humble, 시스템 Python 3.10, CycloneDDS |
-| 매핑·시각화 | `rtabmap_ros`, `rviz2`, NumPy, OpenCV |
-| 메시지 빌드 | `colcon`, `ament_cmake`, `rosidl_default_generators`, `rosidl_generator_dds_idl` |
-| 디지털 트윈 선택 기능 | Isaac Sim, Isaac Lab의 `AppLauncher`, 호환되는 NVIDIA GPU·드라이버, Go2 URDF·메시 |
-
-README 작성 시 로컬에서 확인한 설치는 Ubuntu 22.04.5, Python 3.10.12,
-Isaac Sim `5.1.0.0`, Isaac Lab Python 패키지 `0.48.5`입니다.
-Isaac Sim 환경의 Python은 3.11이며, 이 목록은 로컬 설치 정보입니다. 모든 기능의 호환성 시험 결과를 의미하지 않습니다.
-
-ROS 2 설치는 [Humble 공식 설치 안내](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html),
-시뮬레이터 설치는 [Isaac Lab 설치 안내](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/index.html)를 참고하세요.
-Isaac Sim 5.x의 Python 3.11 환경과 시스템 ROS의 Python 3.10 환경을 구분해 사용합니다.
-
-### 2. 저장소 복제 및 ROS 의존성 설치
-
-다음은 ROS 2 Humble과 ROS apt 저장소가 이미 설정된 환경의 예제입니다.
-SLAM·브리지 명령은 Conda 환경을 활성화하지 않은 시스템 ROS 터미널에서 실행합니다.
-
-```bash
-git clone https://github.com/semin-Gwon/isaac_ws.git "$HOME/isaac_ws"
-cd "$HOME/isaac_ws"
-
-sudo apt update
-sudo apt install \
-  build-essential cmake \
-  python3-colcon-common-extensions python3-numpy python3-opencv \
-  ros-humble-rtabmap-ros ros-humble-rviz2 \
-  ros-humble-rmw-cyclonedds-cpp \
-  ros-humble-rosidl-default-generators ros-humble-rosidl-generator-dds-idl \
-  ros-humble-geometry-msgs ros-humble-nav-msgs ros-humble-sensor-msgs \
-  ros-humble-tf2-ros ros-humble-tf2-msgs
-```
-
-RTAB-Map의 바이너리 설치 방법은 [공식 저장소 안내](https://github.com/introlab/rtabmap_ros#installation)를 따릅니다.
-`go2_real/`의 스크립트는 독립 실행 파일이므로 이 폴더의 Python 의존성은 위 명령으로 별도 설치합니다.
-
-### 3. Unitree 메시지 패키지 빌드
-
-```bash
-cd "$HOME/isaac_ws"
-source /opt/ros/humble/setup.bash
-
-colcon build --symlink-install --packages-select unitree_api unitree_go \
-  --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
-
-source install/local_setup.bash
-ros2 interface show unitree_go/msg/LowState
-```
-
-`src/`의 두 패키지는 ROS 메시지 정의를 제공합니다.
-`go2_real/`은 설치되는 ROS 패키지가 아니므로, launch 파일은 파일 경로로 실행하고 Python 노드는 직접 실행합니다.
-
-### 4. 로컬 경로와 네트워크 설정
-
-> [!IMPORTANT]
-> 현재 코드에는 개발 PC의 `/home/jnu/...` 경로가 들어 있습니다.
-> 다른 계정이나 디렉터리에서 실행할 때는 아래 경로를 먼저 수정해야 합니다.
-> 예제에서 사용하는 `$HOME/isaac_ws`만 변경해도 소스 내부의 절대 경로가 자동으로 바뀌지는 않습니다.
-
-| 위치 | 확인할 설정 |
-| --- | --- |
-| [`env_go2_slam.sh`](./env_go2_slam.sh) | 워크스페이스의 `install/local_setup.bash`, `cyclonedds.xml` 경로 |
-| [`env_go2_visualize.sh`](./env_go2_visualize.sh) | 워크스페이스 및 Isaac Sim ROS 브리지 라이브러리 경로 |
-| [`go2_slam.launch.py`](./go2_real/go2_slam.launch.py) | `topic_sync` 실행 명령 안의 워크스페이스·Python 스크립트 경로 |
-| 두 Isaac Sim 시각화 스크립트 | `ros2_bridge_humble`의 Python 3.11 경로, `urdf_path` |
-| [`go2_import_ply.py`](./go2_real/go2_import_ply.py) | 입력 PLY 경로: 기본값 `/home/jnu/.ros/rtabmap_cloud.ply` |
-| [`cyclonedds.xml`](./cyclonedds.xml) | `NetworkInterfaceAddress`: 기본값 `eno1` |
-
-시각화 스크립트가 참조하는 URDF 기본 경로는
-`/home/jnu/go2_ws/src/go2_description/urdf/go2_description.urdf`입니다.
-URDF가 참조하는 메시 파일까지 접근할 수 있어야 합니다.
-
-`ip -br address`로 로봇에 연결된 인터페이스를 확인하고 `cyclonedds.xml`의 `eno1`을 맞춰 주세요.
-현재 XML에는 특정 인터페이스만 지정되어 있으며, 정적 peer 주소는 정의되어 있지 않습니다.
-
-경로 수정 후 SLAM·브리지용 터미널마다 다음을 실행합니다.
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-```
-
-이 스크립트는 ROS 환경을 불러오고 `RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`,
-`ROS_DOMAIN_ID=0`, `ROS_LOCALHOST_ONLY=0`, `CYCLONEDDS_URI`, `ROS_LOG_DIR=/tmp/ros_logs`를 설정합니다.
-통신하는 로봇·센서 노드와 PC 터미널은 같은 ROS domain을 사용해야 합니다.
-
-<a id="slam"></a>
-
-## SLAM 실행
-
-입력 센서 노드는 별도로 실행되어 있어야 합니다. 사용할 센서 구성에 따라 아래 모드 중 하나를 선택합니다.
-두 SLAM launch는 같은 `/rtabmap` 이름과 지도 토픽을 사용하므로 한 번에 하나씩 실행합니다.
-
-### RGB-D + Odometry
-
-LiDAR 없이 RGB-D 입력을 먼저 확인할 때 사용합니다.
-launch는 IMU 구독도 켜므로, 연결된 IMU 토픽과 TF도 함께 확인하세요.
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-ros2 launch "$HOME/isaac_ws/go2_real/go2_slam.launch.py" \
-  use_lidar:=false use_viz:=true
-```
-
-`topic_sync`, `point_cloud_xyzrgb`, RTAB-Map과 선택한 RTAB-Map Viz가 실행됩니다.
-`topic_sync`를 별도로 실행할 필요는 없습니다.
-
-### RGB-D + LiDAR + Odometry
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-ros2 launch "$HOME/isaac_ws/go2_real/go2_slam.launch.py" \
-  use_lidar:=true use_viz:=true
-```
-
-`use_lidar`의 기본값은 **`true`**입니다.
-이 모드에서는 시간 허용 범위 안의 LiDAR 메시지가 있어야 RGB-D 묶음도 발행됩니다.
-RTAB-Map에는 RGB-D와 scan cloud가 함께 전달되며, 현재 `Reg/Strategy`는 `0`으로 설정되어 있습니다.
-
-| `go2_slam.launch.py` 인자 | 기본값 | 동작 |
-| --- | --- | --- |
-| `use_lidar` | `true` | 동기화 묶음에 LiDAR를 요구하고 RTAB-Map의 scan cloud 구독 활성화 |
-| `use_viz` | `false` | RTAB-Map Viz 실행 |
-| `odom_eval_mode` | `false` | `true`이면 동기화 노드의 `odom → base_link` TF 발행을 생략; 외부 TF 필요 |
-
-`use_sim_time`은 코드 내부에서 기본 `false`로 참조하지만, 이 launch의 선언된 인자 목록에는 없습니다.
-실제 로봇의 시간을 사용하는 구성을 기준으로 합니다.
-
-### 외부 LIO 입력을 사용하는 LiDAR 매핑
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-ros2 launch "$HOME/isaac_ws/go2_real/go2_slam_lio.launch.py" \
-  use_lidar:=true use_viz:=true
-```
-
-이 launch는 RTAB-Map과 선택한 Viz만 실행합니다.
-LIO 추정기나 동기화 노드를 시작하지 않으며, RGB-D 입력도 구독하지 않습니다.
-`Reg/Strategy=1`의 ICP 등록과 `Reg/Force3DoF=true` 설정을 사용합니다.
-
-외부 파이프라인에서 다음을 준비합니다.
-
-- `/utlidar/cloud_deskewed_synced` — `sensor_msgs/msg/PointCloud2`
-- `/utlidar/robot_odom_synced` — `nav_msgs/msg/Odometry`
-- `odom → base_link`와 LiDAR 프레임을 연결하는 TF
-
-`/utlidar/imu_synced` 리매핑도 있지만 현재 `subscribe_imu=False`입니다.
-이 모드의 **`_synced`는 기본 동기화 노드가 발행하는 `_sync`와 다른 토픽**입니다.
-
-선언된 인자는 `use_sim_time=false`, `use_viz=false`, `use_lidar=true`입니다.
-여기서 `use_lidar=false`로 설정하면 RGB-D 모드로 바뀌는 것이 아니라 SLAM 노드가 실행되지 않습니다.
-
-### RViz로 결과 확인
-
-별도 시스템 ROS 터미널에서 실행합니다.
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-rviz2 -d "$HOME/isaac_ws/go2_real/go2_sim.rviz"
-```
-
-기본 Fixed Frame은 `map`입니다. `/map`, `/cloud_map`, `/rgbd_cloud`, 동기화한 RGB·Depth·Odometry를 표시합니다.
-`LiDAR Cloud Sync` 디스플레이는 기본 비활성화되어 있습니다.
-LIO 모드에서는 RGB-D 디스플레이를 끄고, LiDAR·Odometry 디스플레이의 토픽을 해당 모드의 입력에 맞춥니다.
-
-<a id="topics"></a>
-
-## 토픽과 동기화
-
-아래는 [`go2_topic_sync.py`](./go2_real/go2_topic_sync.py)의 입력과 출력입니다.
-여러 입력 이름은 구독 후보이며, 동일 센서의 여러 토픽이 동시에 발행되면 같은 버퍼에 들어갑니다.
-
-| 데이터 | 입력 토픽 | 출력 토픽 |
-| --- | --- | --- |
-| RGB raw | `/my_go2/color/image_raw`, `/camera/color/image_raw` | `/my_go2/color/image_raw_sync` |
-| RGB compressed | 위 두 RGB 토픽의 `/compressed` | 같은 RGB raw 출력으로 디코딩 |
-| Depth raw | `/my_go2/depth/image_rect_raw`, `/camera/depth/image_rect_raw` | `/my_go2/depth/image_rect_raw_sync` |
-| CameraInfo | `/my_go2/color/camera_info`, `/camera/color/camera_info`, `/camera/camera_info` | `/my_go2/color/camera_info_sync` |
-| Odometry | `/utlidar/robot_odom`, `/my_go2/robot_odom`, `/uslam/localization/odom`, `/uslam/frontend/odom` | `/utlidar/robot_odom_sync` |
-| LiDAR | `/utlidar/cloud`, `/utlidar/cloud_deskewed`, `/utlidar/cloud_base` | `/utlidar/cloud_sync` |
-| IMU | `/utlidar/imu`, `/imu/data`, `/my_go2/imu` | `/utlidar/imu_sync` |
-
-RGB가 도착하면 버퍼의 가장 가까운 Depth·LiDAR·Odometry를 찾습니다.
-Depth는 **80 ms**, LiDAR는 **150 ms**, Odometry는 **100 ms**를 기준으로 매칭합니다.
-Odometry가 100 ms 안에 없으면 버퍼에 남아 있는 최신 메시지를 사용하므로, 이는 엄격한 시간 차이 상한이 아닙니다.
-버퍼의 시간 유지 범위는 2초이며 메시지 개수도 제한합니다.
-
-유효한 묶음의 RGB·Depth·CameraInfo·LiDAR·Odometry는 선택한 Odometry 시각을 공유합니다.
-IMU는 별도 콜백에서 재발행하며 이 묶음의 매칭 대상에 포함되지 않습니다.
-동기화된 Odometry도 묶음 발행 시 나가기 때문에 RGB-D 입력이 없으면 출력이 멈출 수 있습니다.
-
-현재 카메라 좌표계는 다음과 같습니다.
-
-```text
-map → odom → base_link → camera_link → camera_optical_frame
-```
-
-`map → odom`은 RTAB-Map, `odom → base_link`는 기본 모드의 동기화 노드가 담당합니다.
-카메라 변환은 코드에 고정되어 있으며 `base_link → camera_link`의 이동량은 `(0.3, 0.0, 0.1) m`입니다.
-실제 장착 위치와 캘리브레이션에 맞게 조정하세요.
-
-CameraInfo를 받으면 그 값을 사용하고, 없으면 640×480 기준의 근사 내부 파라미터를 만들어 사용합니다.
-Depth는 raw `Image` 입력만 구독합니다. `passthrough` 인코딩은 `step`을 보고 `16UC1` 또는 `32FC1`로 바꾸지만,
-영상 정합이나 깊이 값의 단위 변환까지 수행하지는 않습니다.
+[디지털 트윈 실행](#digital-twin) · [환경 준비](#getting-started) · [폴더 구조](#structure) ·
+[SLAM 실행](#slam) · [토픽](#topics) · [문제 해결](#troubleshooting)
 
 <a id="digital-twin"></a>
 
-## Isaac Sim 디지털 트윈
+## 디지털 트윈 빠른 실행
 
-### 관절·자세 동기화
+아래 명령은 **필요한 라이브러리와 Python 3.11용 Unitree 메시지가 준비된 현재 PC 구성**을 기준으로 합니다.
+새로 복제했다면 먼저 [환경 준비](#getting-started)를 확인하세요.
+실제 Go2가 연결되어 `/lf/lowstate`와 `/utlidar/robot_odom`을 발행해야 합니다.
 
-[`ros2_bridge_server.py`](./go2_real/ros2_bridge_server.py)는 `/lf/lowstate`를 받아
-저역 통과 필터와 deadband를 적용한 `/joint_states`를 발행합니다.
-관절 순서는 FR → FL → RR → RL이며 각 다리의 hip·thigh·calf를 사용합니다.
-최대 발행률 설정은 120 Hz이고, `position`만 전달합니다.
-Odometry는 `/utlidar/robot_odom`에서 `/my_go2/robot_odom`으로 릴레이합니다.
-
-**터미널 A — 시스템 ROS 브리지**
+**터미널 1 — 관절 메시지 변환기**
 
 ```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-/usr/bin/python3 "$HOME/isaac_ws/go2_real/ros2_bridge_server.py"
+bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" bridge
 ```
 
-**터미널 B — Isaac Sim / Isaac Lab 환경**
+`/lf/lowstate`를 표준 `/joint_states`로 변환하고 Odometry를 릴레이합니다.
+`Published JointState(filt)` 로그로 관절 수신·발행을 확인할 수 있습니다.
 
-먼저 두 시각화 스크립트의 `ros2_bridge_humble`과 `urdf_path`를 맞춥니다.
-다음은 Python 3.11 Conda 환경 `isaaclab`에 Isaac Sim을 pip 설치한 경우의 예제입니다.
-시스템 ROS를 source하지 않은 별도 터미널에서 실행합니다.
+**터미널 2 — Isaac Sim**
 
 ```bash
-conda activate isaaclab
-
-export ROS_DISTRO=humble
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export ROS_DOMAIN_ID=0
-export ROS_LOCALHOST_ONLY=0
-export CYCLONEDDS_URI="file://$HOME/isaac_ws/cyclonedds.xml"
-export ISAAC_ROS_BRIDGE="$CONDA_PREFIX/lib/python3.11/site-packages/isaacsim/exts/isaacsim.ros2.bridge/humble"
-export LD_LIBRARY_PATH="$ISAAC_ROS_BRIDGE/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-
-python "$HOME/isaac_ws/go2_real/go2_digital_twin.py"
+bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" sim
 ```
 
-스크립트가 `AppLauncher`로 Isaac Sim을 시작하고, `/joint_states` 및 Odometry로 가상 로봇의 관절과 자세를 갱신합니다.
-Isaac Sim의 Python 3.11용 ROS 내부 라이브러리와 CycloneDDS 설정은
-[NVIDIA ROS 2 설치 안내](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/install_ros.html)를 참고하세요.
-`env_go2_visualize.sh`는 시스템 ROS 경로까지 불러오는 기존 환경용 스크립트이므로 Python 환경 구성을 확인한 뒤 사용합니다.
+Go2 URDF를 불러와 수신한 관절·몸체 자세를 적용합니다.
+`[ODOM]`은 Odom 수신, `[POSE]`는 자세 적용 로그입니다. 관절 수신은 터미널 1의 로그도 함께 확인하세요.
+각 터미널에서 `Ctrl+C`로 종료합니다.
 
-### 카메라 화면을 포함하는 시각화
+두 명령은 작업 디렉터리와 관계없이 사용할 수 있습니다.
+[`run.sh`](./go2_real/digital_twin/run.sh)가 Conda 활성화, Python·공유 라이브러리 경로,
+DDS 설정을 적용하므로 별도의 `conda activate`나 시스템 ROS 환경 source가 필요하지 않습니다.
 
-같은 시뮬레이터 환경에서 `go2_visualize.py`를 선택할 수 있습니다.
-이 스크립트는 `/lf/lowstate`를 직접 구독하므로 **Isaac Sim의 Python 버전으로 빌드한 `unitree_go`**도 필요합니다.
-앞서 시스템 Python 3.10으로 빌드한 메시지를 Python 3.11에서 그대로 사용할 수는 없습니다.
+### Bash 명령 모음
 
-```bash
-# Python 3.11용 unitree_go와 시뮬레이터 환경 설정 후 실행
-python "$HOME/isaac_ws/go2_real/go2_visualize.py"
-```
-
-영상 입력은 `/my_go2/color/image_raw_sync`이며, 가상 스크린 텍스처를 갱신합니다.
-Pillow가 없으면 OpenCV로 이미지를 저장합니다.
-이 스크립트와 `go2_digital_twin.py`는 모두 `/tmp/go2.usd`를 생성하므로 하나를 선택해서 사용합니다.
-
-브리지도 Odometry 기반 TF를 발행합니다.
-SLAM과 함께 사용할 때는 동기화 노드·브리지·외부 추정기가 같은 `odom → base_link`를 중복 발행하지 않도록 구성해야 합니다.
-`odom_eval_mode=true`는 동기화 노드의 TF 발행만 끄며, TF 소스를 자동으로 선택하거나 조정하지 않습니다.
-
-### PLY 지도를 Isaac Sim으로 가져오기
-
-RTAB-Map에서 내보낸 PLY의 경로를 `go2_import_ply.py`의 `ply_file_path`에 지정하고,
-Isaac Sim의 열린 stage에서 Script Editor로 실행합니다.
-스크립트는 `/World/rtabmap_cloud`에 `UsdGeom.Points`를 생성합니다.
-
-현재 파서는 little-endian binary PLY의
-`x, y, z, red, green, blue, nx, ny, nz, curvature` 순서와 31-byte vertex 구조를 가정합니다.
-ASCII PLY나 다른 필드 구성의 파일에는 파서 수정이 필요합니다.
-
-<a id="troubleshooting"></a>
-
-## 실행 확인과 문제 해결
-
-SLAM을 실행한 뒤 별도 시스템 ROS 터미널에서 입력·출력·TF를 확인합니다.
-`hz`와 `tf2_echo`는 계속 실행되므로 각 명령 확인 후 `Ctrl+C`로 종료합니다.
-
-```bash
-source "$HOME/isaac_ws/env_go2_slam.sh"
-
-ros2 node list
-ros2 node info /rtabmap
-ros2 topic hz /my_go2/color/image_raw_sync
-ros2 topic hz /my_go2/depth/image_rect_raw_sync
-ros2 topic hz /utlidar/robot_odom_sync
-ros2 topic hz /utlidar/cloud_sync
-ros2 run tf2_ros tf2_echo base_link camera_optical_frame
-ros2 run tf2_ros tf2_echo map base_link
-```
-
-`/utlidar/cloud_sync` 검사는 기본 launch의 LiDAR 활성 모드에서 사용합니다.
-LIO 모드에서는 위 검사 토픽을 `_synced` 입력으로 바꿉니다.
-`/rgbd_cloud`는 현재 RGB-D 입력으로 만든 클라우드이고, `/cloud_map`은 RTAB-Map 지도 출력입니다.
-
-| 증상 | 확인할 내용 |
+| 명령 | 역할 |
 | --- | --- |
-| `No module named unitree_go` | 메시지 패키지 빌드, `install/local_setup.bash`, 실행 Python과 메시지 빌드 버전 |
-| `No module named rclpy` 또는 공유 라이브러리 오류 | 시스템 ROS와 Isaac Sim의 Python 경로 혼합 여부, 브리지 라이브러리 경로 |
-| DDS 인터페이스 오류·토픽 미수신 | `cyclonedds.xml`의 인터페이스, 로봇 연결, domain·RMW 설정 |
-| `Did not receive data` | 선택한 모드의 입력 토픽, 시간 차이, `[diag]`의 `sync_success`·`sync_drop` |
-| LiDAR 없이 RGB-D 출력까지 멈춤 | 기본 `use_lidar=true` 여부; RGB-D 모드는 `use_lidar:=false`로 실행 |
-| TF 단절·자세 튐 | 현재 `camera_optical_frame` 이름, 센서 외부 파라미터, 중복 TF 발행자 |
-| RViz에 클라우드가 안 보임 | `map` TF, 선택한 모드의 토픽, 디스플레이 활성화·QoS |
-| `rosidl_generator_dds_idl` 빌드 오류 | `ros-humble-rosidl-generator-dds-idl` 설치 여부 |
+| `run.sh bridge` | LowState → JointState 변환기 |
+| `run.sh sim` | JointState와 Odom을 구독하는 Isaac Sim |
+| `run.sh camera` | LowState 직접 구독 및 카메라 스크린 시각화 |
+| `run.sh check` | Python·메시지 타입·CycloneDDS 라이브러리 로딩 검사 |
+| `run.sh --help` | 사용법 |
 
-이 README는 현재 소스, 로컬 설치 정보, launch 인자 조회를 기준으로 작성했습니다.
-이번 문서화에서는 실제 로봇을 연결한 SLAM·시뮬레이터 실행이나 매핑 정확도·지연 시간 측정을 수행하지 않았습니다.
+환경만 검사할 때는 다음을 실행합니다. 로봇 연결이나 Sim의 전체 실행을 검사하는 명령은 아닙니다.
+
+```bash
+bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" check
+```
+
+현재 터미널에 환경만 적용하거나, Sim 인자를 전달할 수도 있습니다.
+
+```bash
+source "$HOME/isaac_ws/go2_real/digital_twin/env_go2_visualize.sh"
+
+# 창 없이 실행하는 예
+bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" sim --headless
+```
+
+카메라 입력, PLY 가져오기, 데이터 처리 제약은 [디지털 트윈 상세 안내](./go2_real/digital_twin/README.md)를 참고하세요.
+
+<a id="getting-started"></a>
+
+## 환경 준비
+
+### 저장소와 외부 의존성
+
+```bash
+git clone https://github.com/semin-Gwon/isaac_ws.git "$HOME/isaac_ws"
+```
+
+| 항목 | 현재 구성 / 준비 사항 |
+| --- | --- |
+| 운영체제 | Ubuntu 22.04 |
+| 시스템 ROS | ROS 2 Humble, Python 3.10; SLAM·ROS CLI용 |
+| 디지털 트윈 | `$HOME/anaconda3/envs/isaaclab`, Python 3.11 |
+| 시뮬레이터 | 로컬 확인 버전: Isaac Sim `5.1.0.0`, Isaac Lab Python 패키지 `0.48.5` |
+| GPU | Isaac Sim과 호환되는 NVIDIA GPU·드라이버 |
+| Unitree 메시지 | `src/unitree_go`를 Python 3.11용으로 빌드한 `install/unitree_go` |
+| Go2 모델 | 외부 URDF와 URDF가 참조하는 메시(mesh) 파일 |
+| 로봇·센서 | Go2 연결 및 필요한 카메라·LiDAR 드라이버 별도 준비 |
+
+실행기는 설치나 빌드를 자동으로 수행하지 않습니다.
+`build/`와 `install/`은 Git에서 제외되므로 새로 복제한 환경에는 포함되지 않습니다.
+
+`src/unitree_go`에는 로봇 상태·센서 메시지 26종, `src/unitree_api`에는 API 메시지 8종이 있습니다.
+빌드에는 `colcon`, `ament_cmake`, `rosidl_default_generators`, `rosidl_generator_dds_idl`이 필요합니다.
+현재 디지털 트윈 실행기가 읽는 Python 패키지 위치는 다음과 같습니다.
+
+```text
+install/unitree_go/lib/python3.11/site-packages/unitree_go/
+```
+
+**Python 3.10용 메시지 빌드는 이 실행기에서 사용할 수 없습니다.**
+Python 버전을 바꿔 빌드할 때는 기존 빌드 캐시·설치 결과를 구분해야 합니다.
+현재 PC에는 Python 3.11용 결과가 준비되어 있으므로 바로 `run.sh check`로 확인할 수 있습니다.
+
+ROS 설치는 [ROS 2 Humble 안내](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html),
+Sim의 ROS 라이브러리는 [Isaac Sim 5.1 ROS 설치 안내](https://docs.isaacsim.omniverse.nvidia.com/5.1.0/installation/install_ros.html)를 참고하세요.
+
+### 환경과 네트워크 설정
+
+| 파일 | 역할 |
+| --- | --- |
+| [`go2_real/digital_twin/env_go2_visualize.sh`](./go2_real/digital_twin/env_go2_visualize.sh) | `isaaclab` 활성화, Python 3.11 검사, 시스템 ROS 경로 제거 후 Sim 라이브러리 지정 |
+| [`scripts/env_ros2.sh`](./scripts/env_ros2.sh) | 시스템 ROS와 워크스페이스 환경 로드; SLAM·ROS CLI용 |
+| [`config/cyclonedds.xml`](./config/cyclonedds.xml) | Go2와 통신할 네트워크 인터페이스 지정 |
+
+두 환경 파일은 `source`로 사용합니다. 디지털 트윈 실행기는 자신의 환경 파일을 자동으로 불러옵니다.
+ROS 설정은 `RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`, `ROS_DOMAIN_ID=0`,
+`ROS_LOCALHOST_ONLY=0`, 로그 경로는 `/tmp/ros_logs`입니다.
+
+현재 DDS 인터페이스는 `eno1`입니다. `ip -br address`로 실제 연결 인터페이스를 확인하고 XML을 맞추세요.
+다른 터미널이나 외부 센서 노드도 같은 domain을 사용해야 합니다.
+
+Conda의 설치 위치가 다르면 `GO2_CONDA_ROOT`를 지정할 수 있습니다.
+다만 Python 소스 안의 아래 경로는 별도로 확인해야 합니다.
+
+| 위치 | 현재 기본값 |
+| --- | --- |
+| 두 시각화 스크립트의 `ros2_bridge_humble` | `/home/jnu/anaconda3/envs/isaaclab/lib/python3.11/site-packages/isaacsim/exts/isaacsim.ros2.bridge/humble/rclpy` |
+| 두 시각화 스크립트의 `urdf_path` | `/home/jnu/go2_ws/src/go2_description/urdf/go2_description.urdf` |
+| `tools/go2_import_ply.py`의 입력 | `/home/jnu/.ros/rtabmap_cloud.ply` |
 
 <a id="structure"></a>
 
-## 저장소 구조
+## 폴더 구조
 
 ```text
 isaac_ws/
 ├── README.md
 ├── go2_real/
-│   ├── go2_topic_sync.py          # 센서 버퍼·시간 매칭·TF
-│   ├── go2_slam.launch.py         # RGB-D 및 LiDAR 선택 실행
-│   ├── go2_slam_lio.launch.py     # 외부 LIO 입력의 RTAB-Map 실행
-│   ├── ros2_bridge_server.py     # LowState → JointState·Odom 릴레이
-│   ├── go2_digital_twin.py       # 관절·자세 디지털 트윈
-│   ├── go2_visualize.py          # 로봇·카메라 스크린 시각화
-│   ├── go2_import_ply.py         # PLY → USD Points
-│   └── go2_sim.rviz              # 지도·이미지·TF 디스플레이
+│   ├── digital_twin/                 # 로봇 상태 → Isaac Sim
+│   │   ├── README.md
+│   │   ├── run.sh                    # bridge / sim / camera / check
+│   │   ├── env_go2_visualize.sh       # Python 3.11·Sim ROS 환경
+│   │   ├── ros2_bridge_server.py      # LowState → JointState, Odom 릴레이
+│   │   ├── go2_digital_twin.py        # 관절·몸체 자세 표시
+│   │   ├── go2_visualize.py           # LowState 직접 수신·카메라 표시
+│   │   └── tools/go2_import_ply.py    # 저장된 PLY → USD Points
+│   └── slam/                         # 센서 입력 → 지도
+│       ├── README.md
+│       ├── go2_topic_sync.py
+│       ├── go2_slam.launch.py
+│       ├── go2_slam_lio.launch.py
+│       ├── go2_sim.rviz
+│       └── maps/                     # 로컬 지도 DB, Git 제외
+├── config/cyclonedds.xml             # 공통 DDS 네트워크 설정
+├── scripts/env_ros2.sh               # 시스템 ROS 환경
 ├── src/
-│   ├── unitree_api/              # API 메시지 8종
-│   └── unitree_go/               # 로봇 상태·센서 메시지 26종
-├── cyclonedds.xml
-├── env_go2_slam.sh
-├── env_go2_visualize.sh
-├── GO2_RTABMAP_GUIDE.md
-├── GO2_ISAACSIM_ROS2_GUIDE.md
-├── TASKS.md
-└── plan.md
+│   ├── unitree_go/                   # 로봇 상태·센서 메시지
+│   └── unitree_api/                  # API 메시지
+└── docs/archive/                     # 과거 가이드·설계·작업 기록
 ```
 
-### 생성 파일 관리
+기존 `go2_real/*.py`는 용도별 하위 폴더로 이동했습니다.
+루트의 `env_go2_slam.sh`는 `scripts/env_ros2.sh`로, `cyclonedds.xml`은 `config/`로 이동했습니다.
+개인 실행 스크립트나 기존 터미널의 `CYCLONEDDS_URI`에 이전 경로가 남아 있다면 갱신하세요.
 
-두 SLAM launch는 `go2_real/maps/`를 자동 생성하고 다음 DB 경로를 사용합니다.
+<a id="slam"></a>
 
-| 실행 모드 | 지도 DB |
+## SLAM 실행
+
+SLAM은 디지털 트윈과 별도 시스템 ROS 터미널에서 실행합니다.
+카메라·LiDAR·Odom 입력과 TF가 먼저 준비되어 있어야 합니다.
+
+```bash
+source "$HOME/isaac_ws/scripts/env_ros2.sh"
+ros2 launch "$HOME/isaac_ws/go2_real/slam/go2_slam.launch.py" \
+  use_lidar:=true use_viz:=true
+```
+
+RGB-D만 사용할 때는 `use_lidar:=false`를 지정합니다.
+외부 LIO용 `go2_slam_lio.launch.py`는 별도의 `*_synced` 토픽을 요구하며 동기화 노드를 실행하지 않습니다.
+설치, launch 인자, 토픽·TF, RViz 사용법은 [SLAM 상세 안내](./go2_real/slam/README.md)에 정리되어 있습니다.
+현재 센서 동기화·좌표계 처리에는 아래의 미해결 제약이 있습니다.
+
+<a id="topics"></a>
+
+## 데이터 흐름과 주요 토픽
+
+```mermaid
+flowchart LR
+    robot["실제 Go2"]
+    bridge["변환기 · Python 3.11"]
+    twin["Isaac Sim · 별도 프로세스"]
+    sensors["카메라 · LiDAR · Odom · IMU"]
+    sync["SLAM 센서 동기화 · Python 3.10"]
+    slam["RTAB-Map / RViz"]
+
+    robot -->|LowState · Odom| bridge
+    bridge -->|JointState · Odom 릴레이| twin
+    robot -->|Odom 직접 입력| twin
+    sensors --> sync
+    sync --> slam
+```
+
+| 토픽 | 타입 | 용도 |
+| --- | --- | --- |
+| `/lf/lowstate` | `unitree_go/msg/LowState` | 실제 로봇 관절값 입력 |
+| `/joint_states` | `sensor_msgs/msg/JointState` | 변환기가 발행하는 12개 관절의 위치 |
+| `/utlidar/robot_odom` | `nav_msgs/msg/Odometry` | 실제 로봇 위치·방향 입력 |
+| `/my_go2/robot_odom` | `nav_msgs/msg/Odometry` | 변환기의 원본 Odom 릴레이 |
+| `/my_go2/color/image_raw[_sync]` | `sensor_msgs/msg/Image` | 카메라 포함 시각화의 RGB 입력 |
+
+관절 순서는 FR → FL → RR → RL이며 각 다리의 hip·thigh·calf를 사용합니다.
+변환기는 관절 위치에 필터를 적용하고 `velocity`·`effort`는 보내지 않습니다.
+120Hz 설정은 발행 상한이며 입력을 보간해 120Hz로 만드는 기능은 아닙니다.
+SLAM의 `_sync`와 외부 LIO의 `_synced` 토픽은 서로 다릅니다.
+
+<a id="troubleshooting"></a>
+
+## 검증 범위와 알려진 제약
+
+Bash 문법, 인자 처리, 다른 작업 디렉터리에서의 실행, 시스템 ROS가 설정된 환경에서의 경로 교체,
+ROS 메시지 4종과 CycloneDDS 라이브러리 로딩, Sim의 `--help` 실행을 확인했습니다.
+전체 Isaac Sim 화면과 실제 로봇 움직임의 동시 재현, SLAM 품질을 보장하는 시험은 아직 수행하지 않았습니다.
+
+| 증상·제약 | 확인할 내용 |
 | --- | --- |
-| 기본 RGB-D / RGB-D + LiDAR | `go2_real/maps/rtabmap_real.db` |
-| 외부 LIO 입력 | `go2_real/maps/rtabmap_real_lio.db` |
+| `unitree_go` 또는 타입 지원 로딩 실패 | `run.sh check`, Python 3.11용 메시지 빌드 여부 |
+| `rclpy`·공유 라이브러리 오류 | 실행기를 사용하고, 이후 시스템 ROS 환경을 다시 source하지 않았는지 확인 |
+| 토픽 미수신 | Go2 연결, XML의 인터페이스, DDS domain 0 |
+| 관절 지연·멈춘 자세 유지 | 필터 지연이 있으며 수신 중단 시 상태 처리가 미구현 |
+| 자세 튐·잘못된 입력 | Odom 여러 소스 혼용, 시간 순서·NaN 검증 부족 |
+| 카메라 화면 없음 | `/camera/color/image_raw`는 직접 구독하지 않음. 행 패딩 처리와 OpenCV 저장 경로 결함도 남아 있음 |
+| SLAM 동기화 실패 | 센서별 시각 기준, LiDAR 프레임, RGB·Depth 정렬·매칭 문제 |
 
-기본 launch의 두 센서 모드는 같은 DB를 사용합니다.
-실험별 지도를 보존하려면 RTAB-Map 종료 후 DB를 백업하고, 새 실험의 경로를 launch에서 지정하세요.
+이 실행기는 환경 설정을 정리한 것이며 기존 관절·센서 처리 로직을 수정하지 않습니다.
+세부 제약은 각 기능 폴더의 README에서 확인하세요.
 
-빌드 결과 `build/`, `install/`, 로그 `log/`, Hydra 결과 `outputs/`,
-다운로드한 `.pretrained_checkpoints/`, 생성한 `generated/`, Python 캐시,
-지도 DB·내보낸 PLY/PCD와 ROS bag은 [`.gitignore`](./.gitignore)로 제외합니다.
-이 파일들은 GitHub에서 복제되지 않으므로 필요한 경우 로컬에서 다시 빌드·생성합니다.
+## 생성 파일과 이전 문서
 
-## 관련 문서
+지도 DB는 `go2_real/slam/maps/`에 저장합니다. RGB-D 모드는 `rtabmap_real.db`, 외부 LIO 모드는
+`rtabmap_real_lio.db`를 사용합니다. 기존 지도는 보존하며 Git에는 포함하지 않습니다.
 
-| 문서 | 용도 |
-| --- | --- |
-| [`GO2_RTABMAP_GUIDE.md`](./GO2_RTABMAP_GUIDE.md) | RTAB-Map 통합 과정과 이전 운영 기록 |
-| [`GO2_ISAACSIM_ROS2_GUIDE.md`](./GO2_ISAACSIM_ROS2_GUIDE.md) | ROS·Isaac Sim 환경 분리의 배경과 이전 브리지 구성 |
-| [`plan.md`](./plan.md) | RGB-D·LiDAR 묶음 동기화의 설계 계획 |
-| [`TASKS.md`](./TASKS.md) | 과거 작업 항목과 진행 기록 |
+`build/`, `install/`, 로그, `outputs/`, 생성된 에셋·체크포인트, Python 캐시, 지도 DB·PLY/PCD,
+ROS bag은 [`.gitignore`](./.gitignore)로 제외합니다. 새로 복제한 환경에서는 별도 준비가 필요합니다.
 
-기존 문서에는 현재 없는 `go2_delay.py`나 루트의 `go2_sim.rviz`,
-이전 프레임 이름 `my_go2_color_optical_frame` 등의 설명이 남아 있습니다.
-현재 실행 파일·토픽·경로는 이 README와 `go2_real/`의 소스를 기준으로 확인하세요.
+[`docs/archive/`](./docs/archive/)에는 이전
+[Isaac Sim 가이드](./docs/archive/GO2_ISAACSIM_ROS2_GUIDE.md),
+[RTAB-Map 가이드](./docs/archive/GO2_RTABMAP_GUIDE.md),
+[설계 계획](./docs/archive/plan.md), [작업 기록](./docs/archive/TASKS.md)을 보관합니다.
+과거 문서에는 현재 없는 스크립트와 이전 설정이 남아 있으므로 실행 명령은 현재 README를 기준으로 합니다.
 
 ## 라이선스와 문의
 
-저장소 루트에는 프로젝트 전체에 적용하는 라이선스 파일이 아직 없습니다.
-포함된 Unitree 메시지 패키지는 각각
-[`unitree_api/LICENSE`](./src/unitree_api/LICENSE),
-[`unitree_go/LICENSE`](./src/unitree_go/LICENSE)의 BSD 3-Clause 조건을 따릅니다.
+프로젝트 전체에 적용하는 루트 라이선스 파일은 아직 없습니다.
+포함된 Unitree 패키지는 각각 [`unitree_go/LICENSE`](./src/unitree_go/LICENSE),
+[`unitree_api/LICENSE`](./src/unitree_api/LICENSE)의 BSD 3-Clause 조건을 따릅니다.
 
 문제나 개선 제안은 [GitHub Issues](https://github.com/semin-Gwon/isaac_ws/issues)에 남겨 주세요.
-사용한 launch와 인자, ROS·Python·Isaac Sim 버전, 입력 토픽과 관련 로그를 함께 기록하면 재현에 도움이 됩니다.
+사용한 실행 명령, Python·ROS·Isaac Sim 버전, 입력 토픽과 오류 로그를 함께 기록하면 재현에 도움이 됩니다.

@@ -48,8 +48,9 @@ def check_environment() -> None:
     if cyclone_uri:
         print(f"[환경유지] CYCLONEDDS_URI={cyclone_uri}")
     else:
-        # 미설정 시 브리지 전용 DDS 설정을 우선 사용
-        shared_xml = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cyclonedds_bridge.xml')
+        # 미설정 시 워크스페이스의 공통 DDS 설정을 우선 사용
+        workspace_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        shared_xml = os.path.join(workspace_dir, 'config', 'cyclonedds.xml')
         default_xml = os.path.expanduser('~/cyclonedds.xml')
         if os.path.exists(shared_xml):
             os.environ['CYCLONEDDS_URI'] = f'file://{shared_xml}'
@@ -58,7 +59,7 @@ def check_environment() -> None:
             os.environ['CYCLONEDDS_URI'] = f'file://{default_xml}'
             print(f"[자동설정] CYCLONEDDS_URI=file://{default_xml}")
         else:
-            print("⚠️  경고: cyclonedds_bridge.xml 및 ~/cyclonedds.xml 파일이 없습니다.")
+            print("⚠️  경고: config/cyclonedds.xml 및 ~/cyclonedds.xml 파일이 없습니다.")
 
 
 class Go2BridgeServer(Node):

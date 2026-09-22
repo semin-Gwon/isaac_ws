@@ -17,10 +17,10 @@
 
 # RTAB-Map databases, SQLite sidecars, and exported point clouds
 # Keep these rules scoped so source assets elsewhere can be versioned.
-/go2_real/maps/*.db
-/go2_real/maps/*.db-*
-/go2_real/maps/*.ply
-/go2_real/maps/*.pcd
+/go2_real/slam/maps/*.db
+/go2_real/slam/maps/*.db-*
+/go2_real/slam/maps/*.ply
+/go2_real/slam/maps/*.pcd
 
 # ROS recordings
 /bags/

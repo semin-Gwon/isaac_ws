@@ -1,5 +1,7 @@
 # Go2 RTAB-Map LiDAR Sync Implementation Plan
 
+> 과거 설계·운영 기록입니다. 이동된 파일의 경로는 갱신했지만, 현재 없는 스크립트나 이전 설정 설명이 남아 있습니다. 현재 실행 방법은 [루트 README](../../README.md)를 확인하세요.
+
 ## Goal
 
 Stabilize RTAB-Map SLAM when using RGB-D + LiDAR together.
@@ -155,7 +157,7 @@ Outputs that should share the exact same stamp in one bundle:
 
 ## Required Code Changes
 
-### File: `go2_real/go2_topic_sync.py`
+### File: `go2_real/slam/go2_topic_sync.py`
 
 #### 1. Add message buffers
 
@@ -246,7 +248,7 @@ Log reasons for sync drops with throttling:
 - no odom match
 - timestamp delta too large
 
-### File: `go2_real/go2_slam.launch.py`
+### File: `go2_real/slam/go2_slam.launch.py`
 
 #### 1. Keep current branch split
 
@@ -276,7 +278,7 @@ Keep those values unless testing shows a regression.
 Run:
 
 ```bash
-ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py use_lidar:=false use_viz:=true
+ros2 launch /home/jnu/isaac_ws/go2_real/slam/go2_slam.launch.py use_lidar:=false use_viz:=true
 ```
 
 Verify:
@@ -290,7 +292,7 @@ Verify:
 Run:
 
 ```bash
-ros2 launch /home/jnu/isaac_ws/go2_real/go2_slam.launch.py use_lidar:=true use_viz:=true
+ros2 launch /home/jnu/isaac_ws/go2_real/slam/go2_slam.launch.py use_lidar:=true use_viz:=true
 ```
 
 Verify:

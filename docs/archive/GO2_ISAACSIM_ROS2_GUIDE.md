@@ -1,5 +1,7 @@
 # IsaacSim + 실제 Go2 로봇 ROS 2 연동 상세 가이드
 
+> 과거 설계·운영 기록입니다. 이동된 파일의 경로는 갱신했지만, 현재 없는 스크립트나 이전 설정 설명이 남아 있습니다. 현재 실행 방법은 [루트 README](../../README.md)를 확인하세요.
+
 이 문서는 실제 Go2 로봇의 데이터를 Isaac Sim 환경으로 가져와 시각화하는 전체 시스템의 구조와 원리를 상세하게 설명합니다. 초보자도 이해하기 쉽도록 구체적인 작동 방식과 설정 이유를 포함했습니다.
 
 ## 1. 시스템 아키텍처 (System Architecture)
@@ -202,7 +204,7 @@ source ~/go2_bridge_ws/install/setup.bash
 
 # 브리지 서버 실행
 # 이 스크립트는 /lf/lowstate를 구독하고 /joint_states를 발행하기 시작합니다.
-python /home/jnu/isaac_ws/go2_real/ros2_bridge_server.py
+python /home/jnu/isaac_ws/go2_real/digital_twin/ros2_bridge_server.py
 ```
 *   **성공 확인:** "Go2 Bridge Server Started..." 메시지가 출력되면 정상입니다.
 
@@ -216,7 +218,7 @@ conda activate isaaclab
 # 로컬에서만 통신하도록 ID를 0으로 맞춥니다. (필요 시 변경 가능)
 export ROS_DOMAIN_ID=0
 # FastDDS 설정 파일 경로 지정 (필요한 경우)
-export CYCLONEDDS_URI=file:///home/jnu/isaac_ws/cyclonedds.xml
+export CYCLONEDDS_URI=file:///home/jnu/isaac_ws/config/cyclonedds.xml
 
 # [실행]
 # 주의: 'python'이 아니라 'python -m isaacsim'을 사용해야 Isaac Sim 모듈 경로가 올바르게 잡힙니다.

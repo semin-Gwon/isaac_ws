@@ -428,7 +428,7 @@ def main():
     # 3. Setup ROS 2
     # [NEW] Set CycloneDDS URI if not already set
     if 'CYCLONEDDS_URI' not in os.environ:
-        os.environ['CYCLONEDDS_URI'] = 'file:///home/jnu/isaac_ws/cyclonedds.xml'
+        os.environ['CYCLONEDDS_URI'] = (Path(__file__).resolve().parents[2] / 'config' / 'cyclonedds.xml').as_uri()
 
     rclpy.init()
     visualizer = Go2Visualizer(go2_robot, world.stage)

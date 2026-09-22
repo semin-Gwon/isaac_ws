@@ -1,15 +1,15 @@
 ---
-description: Create or update a project task checklist in TASKS.md following a specific hierarchical format.
+description: Create or update a project task checklist in docs/archive/TASKS.md following a specific hierarchical format.
 ---
 
-This workflow analyzes the current directory's work history and generates a structured checklist in `TASKS.md`.
+This workflow analyzes the current directory's work history and generates a structured checklist in `docs/archive/TASKS.md`.
 
 ### 1. Context Analysis
 - Check the current directory for recent file modifications and git history (if available) to understand what tasks have been performed.
-- Read the existing `TASKS.md` file if it exists to preserve current status.
+- Read the existing `docs/archive/TASKS.md` file if it exists to preserve current status.
 
 ### 2. File Generation / Update
-- Create or update `TASKS.md` using the following Markdown structure:
+- Create or update `docs/archive/TASKS.md` using the following Markdown structure:
 
 ```markdown
 # [Project Name/Folder Name] 작업 현황
@@ -37,5 +37,5 @@ This workflow analyzes the current directory's work history and generates a stru
 - ** Granularity**: Break down complex tasks into sub-tasks for better tracking.
 
 ### 4. Execution
-- If `TASKS.md` already exists, append new tasks or update the status of existing ones based on recent activity.
+- If `docs/archive/TASKS.md` already exists, append new tasks or update the status of existing ones based on recent activity.
 - If it doesn't exist, create it based on the analysis of the current folder's content.
