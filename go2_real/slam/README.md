@@ -2,11 +2,25 @@
 
 ## Quick Start
 
-- 환경: 시스템 ROS 2 Humble · Python 3.10 · [설치 안내](../../docs/setup.md)
+- 처음 사용: [설치 안내](../../docs/setup.md)의 1·3·5·6단계 · SLAM 전용 빌드 선택
+- 필수: ROS 2 Humble·Python 3.10 · RTAB-Map·RViz·NumPy·OpenCV
+- 디지털 트윈과 함께 사용: 설치 안내 전체 단계 · Python 3.11 메시지 빌드 선택
 - 입력: RGB·Depth·CameraInfo·Odom·IMU·LiDAR 발행 중
+- 장착 위치별 카메라 보정·TF 확인 필요 · [좌표계](#동기화좌표계) / [현재 제약](#제약관련-파일)
 - SLAM 모드 하나만 선택 · 종료: `Ctrl+C`
 
-### RGB-D + LiDAR · 기본
+### 터미널 1 — RGB-D 카메라
+
+**RealSense 예시** · 이미 카메라 토픽 발행 중이면 생략
+
+```bash
+source "$HOME/isaac_ws/scripts/env_ros2.sh"
+ros2 launch realsense2_camera rs_launch.py \
+  camera_namespace:=/ camera_name:=camera \
+  enable_color:=true enable_depth:=true align_depth.enable:=true
+```
+
+### 터미널 2 — RGB-D + LiDAR SLAM
 
 ```bash
 source "$HOME/isaac_ws/scripts/env_ros2.sh"
@@ -15,10 +29,11 @@ ros2 launch "$HOME/isaac_ws/go2_real/slam/go2_slam.launch.py" \
 ```
 
 - 실행: 동기화 노드 + RGB-D cloud + RTAB-Map + Viz
+- 확인: 동기화 로그의 `sync_success` 증가 · `/rtabmap` 실행 · 지도 갱신
 - RGB-D만 사용: `use_lidar:=false`
 - LiDAR 활성화 시: 매칭 가능한 LiDAR 메시지 필수
 
-### RViz · 별도 터미널·선택
+### 터미널 3 — RViz · 선택
 
 ```bash
 source "$HOME/isaac_ws/scripts/env_ros2.sh"
@@ -30,6 +45,8 @@ rviz2 -d "$HOME/isaac_ws/go2_real/slam/go2_sim.rviz"
 - LiDAR 디스플레이: 기본 비활성화
 
 ### 외부 LIO · 선택
+
+**터미널 2의 기본 SLAM 대신 실행** · 외부 추정기·`*_synced` 입력이 준비된 경우
 
 ```bash
 source "$HOME/isaac_ws/scripts/env_ros2.sh"

@@ -2,14 +2,31 @@
 
 ## Quick Start
 
-- 기준: `~/isaac_ws` · [환경 설치 완료](../../docs/setup.md) · 로봇·카메라 발행 중
+- 처음 사용: [설치 안내 1~6단계](../../docs/setup.md) → 메시지 검사·모델 준비·Go2 연결
+- 필수: Python 3.11 · Isaac Sim 5.1 · Isaac Lab · Unitree 메시지 · Go2 URDF·mesh
 - 모드: `camera` / `bridge + sim` 중 하나 · 종료: `Ctrl+C`
 
-### 카메라 포함 · 터미널 1개
+### 카메라 포함
+
+#### 터미널 1 — 카메라 드라이버
+
+**RealSense 예시** · 이미 RGB·Depth 발행 중이면 생략 · [다른 카메라 설정](../../docs/setup.md#sensors)
+
+```bash
+source "$HOME/isaac_ws/scripts/env_ros2.sh"
+ros2 launch realsense2_camera rs_launch.py \
+  camera_namespace:=/ camera_name:=camera \
+  enable_color:=true enable_depth:=true align_depth.enable:=true
+```
+
+#### 터미널 2 — Isaac Sim
 
 ```bash
 bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" camera
 ```
+
+- 성공 기준: 로봇·RGB 스크린 표시 · `[DIAG]` 수신 횟수·`texture_updates` 증가
+- 뎁스·LiDAR: `[DEPTH]`·`[LIDAR]`의 `OK` 확인
 
 ### 관절·자세만 · 터미널 2개
 
@@ -24,6 +41,8 @@ bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" bridge
 ```bash
 bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" sim
 ```
+
+- 성공 기준: 변환기의 `Published JointState(filt)` 로그 · Sim에서 관절·자세 반영
 
 ### 센서 수신 검사 · 선택
 

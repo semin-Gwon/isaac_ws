@@ -6,19 +6,40 @@
 
 ## Quick Start
 
-- 기준: `~/isaac_ws` · [환경 설치 완료](./docs/setup.md) · 로봇·센서 발행 중
-- 디지털 트윈: `camera` 또는 `bridge + sim` 중 하나
-- 종료: 각 터미널에서 `Ctrl+C`
+### 최초 설치
+
+| 순서 | 준비할 항목 | 안내 |
+| --- | --- | --- |
+| 1 | Ubuntu 22.04 · ROS 2 Humble · 저장소 복제 | [Prerequisites](./docs/setup.md#prerequisites) |
+| 2 | Python 3.11 · Isaac Sim 5.1 · Isaac Lab | [디지털 트윈 환경](./docs/setup.md#isaac) |
+| 3 | Unitree 메시지 빌드 | [기능별 빌드](./docs/setup.md#messages) |
+| 4 | 외부 Go2 URDF·mesh · PC별 경로 설정 | [모델 준비](./docs/setup.md#model) |
+| 5 | Go2 네트워크 · 카메라 드라이버 · 수신 확인 | [센서 연결](./docs/setup.md#sensors) |
+
+- SLAM만 사용: 2·4단계 생략 · 3단계의 SLAM 전용 빌드 선택
+- 설치 후: 아래 모드 실행 · `camera` / `bridge + sim` 중 하나
+- 경로: `~/isaac_ws` · 종료: 각 터미널에서 `Ctrl+C`
 
 <a id="digital-twin"></a>
 
 ### Digital Twin · 카메라 포함
 
+**터미널 1 — RealSense 드라이버** · 이미 `/camera/...` 발행 중이면 생략
+
+```bash
+source "$HOME/isaac_ws/scripts/env_ros2.sh"
+ros2 launch realsense2_camera rs_launch.py \
+  camera_namespace:=/ camera_name:=camera \
+  enable_color:=true enable_depth:=true align_depth.enable:=true
+```
+
+**터미널 2 — Isaac Sim**
+
 ```bash
 bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" camera
 ```
 
-- 터미널 1개 · 별도 변환기 불필요
+- 카메라 모드: 별도 관절 변환기 불필요
 - 관절·자세·RGB 표시 / 뎁스·LiDAR 수신 진단
 
 ### Digital Twin · 관절·자세만
@@ -46,6 +67,7 @@ ros2 launch "$HOME/isaac_ws/go2_real/slam/go2_slam.launch.py" \
 ```
 
 - 별도 시스템 ROS 터미널
+- Go2·카메라 토픽 발행 후 실행 · [필수 입력 확인](./go2_real/slam/README.md#quick-start)
 - RGB-D만 사용: `use_lidar:=false`
 
 ## 실행 영상
@@ -77,7 +99,7 @@ flowchart LR
 | --- | --- |
 | [디지털 트윈](./go2_real/digital_twin/README.md) | 실행 모드·토픽·센서 진단 |
 | [SLAM](./go2_real/slam/README.md) | RViz·외부 LIO·지도 저장 |
-| [환경 설정](./docs/setup.md) | 설치 조건·경로·DDS |
+| [환경 설정](./docs/setup.md) | 첫 설치·외부 저장소·메시지 빌드·센서 연결 |
 | [이전 기록](./docs/archive/) | 과거 설정·실험 기록 |
 
 <a id="troubleshooting"></a>
