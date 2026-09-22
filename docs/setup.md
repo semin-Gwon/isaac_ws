@@ -67,8 +67,17 @@ bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" check
 
 이 명령은 메시지·CycloneDDS 라이브러리 로딩을 확인합니다.
 실제 로봇 연결이나 Isaac Sim 전체 실행을 검사하는 명령은 아닙니다.
-Bash의 인자 처리, 다른 작업 폴더에서의 실행, 시스템 ROS 경로 교체와 Sim의 `--help` 실행도 확인했습니다.
-실제 로봇·Sim의 동시 재현과 SLAM 품질 검증은 별도로 필요합니다.
+
+실제 뎁스·LiDAR 연결은 선택적으로 다음 명령으로 검사합니다.
+
+```bash
+bash "$HOME/isaac_ws/go2_real/digital_twin/run.sh" sensors --seconds 10
+```
+
+카메라 모드는 `run.sh camera` 한 개로 실행하며, Unitree `LowState`를 직접 읽습니다.
+기본 관절 모드는 별도 터미널의 `run.sh bridge`와 `run.sh sim`을 함께 사용합니다.
+`sensors`는 연결 검사 도구이며 변환기를 대신하지 않습니다.
+로컬에서 카메라 화면·센서 수신을 확인했으며, 시간 동기화 정확도와 SLAM 품질 검증은 별도로 필요합니다.
 
 ## 생성 파일
 

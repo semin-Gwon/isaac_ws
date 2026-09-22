@@ -14,6 +14,8 @@ ros2_bridge_humble = (
 if os.path.exists(ros2_bridge_humble) and ros2_bridge_humble not in sys.path:
     sys.path.insert(0, ros2_bridge_humble)
 
+from sensor_subscriptions import SensorSubscriptions, add_sensor_arguments
+
 # [NEW] Use AppLauncher from Isaac Lab to ensure extensions are loaded correctly
 try:
     from isaaclab.app import AppLauncher
@@ -24,6 +26,12 @@ except ImportError:
 
 # Argument Parser for AppLauncher
 parser = argparse.ArgumentParser(description="Visualize Go2 Robot with ROS 2")
+parser.add_argument(
+    "--camera-topic",
+    default="/camera/color/image_raw",
+    help="RGB image topic (sensor_msgs/msg/Image) for the virtual screen",
+)
+add_sensor_arguments(parser)
 # AppLauncher arguments (headless, etc.)
 AppLauncher.add_app_launcher_args(parser)
 args_cli = parser.parse_args()
@@ -45,6 +53,7 @@ simulation_app = app_launcher.app
 
 # Now import the rest (must be after app launch)
 import carb
+import omni.ui as ui
 import omni.graph.core as og
 from omni.isaac.core import World
 from omni.isaac.core.utils.extensions import enable_extension
@@ -75,13 +84,7 @@ except ImportError:
         pass
 
 import numpy as np
-import cv2
 from pxr import UsdGeom, UsdShade, Sdf, Gf, Vt
-
-try:
-    from PIL import Image as PILImage
-except Exception:
-    PILImage = None
 
 
 def quat_rotate_wxyz(q_wxyz, v_xyz):
@@ -99,13 +102,16 @@ class VirtualCameraScreen:
         self.screen_prim_path = screen_prim_path
         self.mat_path = "/World/Materials/Go2CameraScreenMat"
         self.texture_input = None
-        self.frame_toggle = 0
-        self._last_texture_write = 0.0
-        self._write_period_sec = 0.10  # 10Hz texture update
-        self.texture_files = [
-            Path("/tmp/go2_camera_screen_a.jpg"),
-            Path("/tmp/go2_camera_screen_b.jpg"),
-        ]
+        self._last_texture_update = float("-inf")
+        self._update_period_sec = 0.10  # 10Hz texture update
+        self.texture_update_count = 0
+        # Keep one material/texture resource. Replacing JPEG assets at 10Hz
+        # repeatedly entered RTX's asynchronous texture reload path and crashed.
+        self.texture_name = f"go2_camera_{os.getpid()}_{id(self):x}"
+        self.texture_provider = ui.DynamicTextureProvider(self.texture_name)
+        self._texture_rgba = np.zeros((2, 2, 4), dtype=np.uint8)
+        self._texture_rgba[:, :, 3] = 255
+        self.texture_provider.set_data_array(self._texture_rgba, [2, 2])
         self._create_screen_mesh_with_material()
 
     def _create_screen_mesh_with_material(self):
@@ -119,15 +125,17 @@ class VirtualCameraScreen:
         if not xform.AddScaleOp():
             pass
 
-        # Quad mesh (YZ plane), normal toward +X
+        # Face the robot (-X) from the screen's position in front of it (+X).
+        # From the robot looking forward, +Y is screen-left and -Y is right;
+        # keep UV order aligned with those corners so the image is not mirrored.
         mesh_path = f"{self.screen_prim_path}/ScreenMesh"
         mesh = UsdGeom.Mesh.Define(self.stage, mesh_path)
         mesh.CreatePointsAttr(
             [
-                Gf.Vec3f(0.0, -0.28, -0.17),
                 Gf.Vec3f(0.0, 0.28, -0.17),
-                Gf.Vec3f(0.0, 0.28, 0.17),
+                Gf.Vec3f(0.0, -0.28, -0.17),
                 Gf.Vec3f(0.0, -0.28, 0.17),
+                Gf.Vec3f(0.0, 0.28, 0.17),
             ]
         )
         mesh.CreateFaceVertexCountsAttr([4])
@@ -155,10 +163,13 @@ class VirtualCameraScreen:
 
         pbr_shader = UsdShade.Shader.Define(self.stage, f"{self.mat_path}/PreviewSurface")
         pbr_shader.CreateIdAttr("UsdPreviewSurface")
-        pbr_shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(0.2)
+        pbr_shader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0)
         pbr_shader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
-        # Make the screen look brighter regardless of scene lighting.
-        pbr_shader.CreateInput("emissiveColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.35, 0.35, 0.35))
+        # A display emits the image itself; constant emission and reflected
+        # scene light otherwise wash out the live camera texture.
+        pbr_shader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.0))
+        pbr_shader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
+        pbr_shader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.0))
 
         st_reader = UsdShade.Shader.Define(self.stage, f"{self.mat_path}/PrimvarReader")
         st_reader.CreateIdAttr("UsdPrimvarReader_float2")
@@ -167,11 +178,11 @@ class VirtualCameraScreen:
         tex_shader = UsdShade.Shader.Define(self.stage, f"{self.mat_path}/DiffuseTexture")
         tex_shader.CreateIdAttr("UsdUVTexture")
         self.texture_input = tex_shader.CreateInput("file", Sdf.ValueTypeNames.Asset)
-        self.texture_input.Set(Sdf.AssetPath(str(self.texture_files[0])))
+        self.texture_input.Set(Sdf.AssetPath(f"dynamic://{self.texture_name}"))
         tex_shader.CreateInput("sourceColorSpace", Sdf.ValueTypeNames.Token).Set("sRGB")
         tex_shader.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(st_reader.ConnectableAPI(), "result")
 
-        pbr_shader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
+        pbr_shader.CreateInput("emissiveColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
             tex_shader.ConnectableAPI(), "rgb"
         )
         material.CreateSurfaceOutput().ConnectToSource(pbr_shader.ConnectableAPI(), "surface")
@@ -201,28 +212,27 @@ class VirtualCameraScreen:
         xform_ops[2].Set(Gf.Vec3f(1.0, 1.0, 1.0))
 
     def update_texture(self, rgb_image):
-        if self.texture_input is None or rgb_image is None:
+        if rgb_image is None:
             return
-        now = time.time()
-        if now - self._last_texture_write < self._write_period_sec:
+        now = time.monotonic()
+        if now - self._last_texture_update < self._update_period_sec:
             return
-        self._last_texture_write = now
-
-        self.frame_toggle = 1 - self.frame_toggle
-        out_path = self.texture_files[self.frame_toggle]
-        tmp_path = out_path.with_suffix(out_path.suffix + ".tmp")
-        if PILImage is not None:
-            PILImage.fromarray(rgb_image, mode="RGB").save(str(tmp_path), format="JPEG", quality=92)
-        else:
-            # Fallback when Pillow is not installed in Isaac Sim env.
-            bgr_image = rgb_image[:, :, ::-1]
-            cv2.imwrite(str(tmp_path), bgr_image, [int(cv2.IMWRITE_JPEG_QUALITY), 92])
-        os.replace(str(tmp_path), str(out_path))
-        # Alternate file path to force texture refresh
-        self.texture_input.Set(Sdf.AssetPath(str(out_path)))
+        if (rgb_image.dtype != np.uint8 or rgb_image.ndim != 3 or rgb_image.shape[2] != 3
+                or rgb_image.shape[0] == 0 or rgb_image.shape[1] == 0):
+            raise ValueError("Camera texture requires a non-empty uint8 RGB image")
+        h, w = rgb_image.shape[:2]
+        # The native provider requires tightly packed RGBA bytes. Allocate a new
+        # buffer so a later frame cannot overwrite pixels still being uploaded.
+        rgba = np.empty((h, w, 4), dtype=np.uint8)
+        rgba[:, :, :3] = rgb_image
+        rgba[:, :, 3] = 255
+        self.texture_provider.set_data_array(rgba, [w, h])
+        self._texture_rgba = rgba
+        self._last_texture_update = now
+        self.texture_update_count += 1
 
 class Go2Visualizer(Node):
-    def __init__(self, articulation, stage):
+    def __init__(self, articulation, stage, camera_topic, depth_topic, lidar_topic):
         super().__init__('go2_visualizer')
         self.articulation = articulation
         self.virtual_screen = VirtualCameraScreen(stage=stage)
@@ -262,19 +272,16 @@ class Go2Visualizer(Node):
             qos
         )
 
-        # Camera image subscription for virtual screen
-        self.sub_color_sync = self.create_subscription(
+        # Use one selected RGB stream for the virtual screen.
+        self.camera_topic = camera_topic
+        self.sub_color = self.create_subscription(
             Image,
-            '/my_go2/color/image_raw_sync',
+            self.camera_topic,
             self.image_callback,
             qos
         )
-        self.sub_color_raw = self.create_subscription(
-            Image,
-            '/my_go2/color/image_raw',
-            self.image_callback,
-            qos
-        )
+        print(f"[CAMERA] Subscribing to {self.camera_topic}")
+        self.sensors = SensorSubscriptions(self, depth_topic, lidar_topic)
         
         self.joint_names = [
             "FR_hip_joint", "FR_thigh_joint", "FR_calf_joint",
@@ -323,10 +330,10 @@ class Go2Visualizer(Node):
         print(
             f"[DIAG] /lf/lowstate callbacks={self._joint_cb_count} last_rx={joint_age_str} | "
             f"/utlidar/robot_odom callbacks={self._odom_cb_count} last_rx={odom_age_str} | "
-            f"/my_go2/color/image_raw_sync callbacks={self._img_cb_count} last_rx={img_age_str}"
+            f"{self.camera_topic} callbacks={self._img_cb_count} last_rx={img_age_str} | "
+            f"texture_updates={self.virtual_screen.texture_update_count}"
         )
-        if PILImage is None:
-            print("[DIAG] Pillow not found, using OpenCV fallback for screen texture writes.")
+        self.sensors.log_diagnostics()
 
     def image_callback(self, msg):
         self._img_cb_count += 1
@@ -431,14 +438,17 @@ def main():
         os.environ['CYCLONEDDS_URI'] = (Path(__file__).resolve().parents[2] / 'config' / 'cyclonedds.xml').as_uri()
 
     rclpy.init()
-    visualizer = Go2Visualizer(go2_robot, world.stage)
+    visualizer = Go2Visualizer(
+        go2_robot, world.stage, camera_topic=args_cli.camera_topic,
+        depth_topic=args_cli.depth_topic, lidar_topic=args_cli.lidar_topic,
+    )
     
     world.reset()
     
     # 4. Loop
     while simulation_app.is_running():
         world.step(render=True)
-        rclpy.spin_once(visualizer, timeout_sec=0.0)
+        spin_ros_callbacks(visualizer)
         
         if go2_robot.handles_initialized:
             visualizer.update_robot()
@@ -447,6 +457,17 @@ def main():
     visualizer.destroy_node()
     rclpy.shutdown()
     simulation_app.close()
+
+
+def spin_ros_callbacks(node):
+    # Drain several ready callbacks per frame so odometry, RGB, depth and LiDAR
+    # do not have to share a single callback slot. Check the time budget between callbacks.
+    deadline = time.monotonic() + 0.005
+    for _ in range(16):
+        rclpy.spin_once(node, timeout_sec=0.0)
+        if time.monotonic() >= deadline:
+            break
+
 
 if __name__ == "__main__":
     main()

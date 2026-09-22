@@ -3,11 +3,12 @@
 
 usage() {
     cat <<'USAGE'
-사용법: bash go2_real/digital_twin/run.sh <bridge|sim|camera|check> [추가 인자]
+사용법: bash go2_real/digital_twin/run.sh <bridge|sim|camera|sensors|check> [추가 인자]
 
   bridge  LowState → JointState 변환기 실행 (터미널 1)
   sim     Isaac Sim 관절·자세 디지털 트윈 실행 (터미널 2)
-  camera  LowState 직접 구독 및 카메라 스크린 시각화 실행
+  camera  관절·RGB 시각화 및 뎁스·LiDAR 구독 실행
+  sensors 뎁스·LiDAR 실제 수신 검사 (기본 10초, Isaac Sim 실행 없음)
   check   Python·메시지·CycloneDDS 라이브러리 검사 (ROS 노드 실행 없음)
 
 예: bash go2_real/digital_twin/run.sh sim --headless
@@ -20,6 +21,7 @@ case "${1:-}" in
     bridge) target=ros2_bridge_server.py ;;
     sim) target=go2_digital_twin.py ;;
     camera) target=go2_visualize.py ;;
+    sensors) target=sensor_subscriptions.py ;;
     check) target=check ;;
     *) usage >&2; exit 2 ;;
 esac
@@ -42,12 +44,12 @@ import sys
 import rclpy
 from rclpy.type_support import check_for_type_support
 from unitree_go.msg import LowState
-from sensor_msgs.msg import JointState
+from sensor_msgs.msg import Image, JointState, PointCloud2
 from nav_msgs.msg import Odometry
 from tf2_msgs.msg import TFMessage
 
 print(f"Python: {sys.version.split()[0]} ({sys.executable})")
-for message_type in (LowState, JointState, Odometry, TFMessage):
+for message_type in (LowState, JointState, Odometry, TFMessage, Image, PointCloud2):
     check_for_type_support(message_type)
     print(f"{message_type.__name__}: OK")
 ctypes.CDLL(os.path.join(os.environ["ISAAC_ROS_BRIDGE"], "lib", "librmw_cyclonedds_cpp.so"))
