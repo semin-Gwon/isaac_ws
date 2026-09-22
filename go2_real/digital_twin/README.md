@@ -3,6 +3,8 @@
 실제 Go2의 관절·몸체 자세와 RGB 영상을 Isaac Sim에 표시합니다.
 뎁스·LiDAR는 수신 및 진단 로그를 지원합니다. SLAM은 별도로 실행합니다.
 
+[YouTube 실행 영상 보기 →](https://youtu.be/HpQZ3kfetH0)
+
 ## 실행 모드 선택
 
 | 모드 | 관절 입력 | 별도 변환기 | 화면 |

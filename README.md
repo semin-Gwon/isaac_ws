@@ -8,6 +8,12 @@
 - **디지털 트윈:** 관절·자세와 RGB 화면을 표시하고, 뎁스·LiDAR 수신 상태를 확인합니다.
 - **SLAM:** 카메라·LiDAR 데이터를 사용해 RTAB-Map으로 지도를 만듭니다.
 
+## 실행 영상
+
+[![Go2 디지털 트윈 실행 영상 — 클릭하면 YouTube로 이동](https://img.youtube.com/vi/HpQZ3kfetH0/hqdefault.jpg)](https://youtu.be/HpQZ3kfetH0)
+
+[YouTube에서 실행 영상 보기 →](https://youtu.be/HpQZ3kfetH0)
+
 <a id="topics"></a>
 
 ## 전체 구성
